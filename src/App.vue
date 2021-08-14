@@ -89,6 +89,7 @@ body a {
     border: 1px solid #e1e1e1;
     border-radius: 5px;
     height: 52px;
+    background: #ffffff;
 }
 
 .input-field {
@@ -101,6 +102,7 @@ body a {
     bottom: 0;
     margin: auto;
     left: 18px;
+    max-width: 20px;
 }
 .signup-bottom {
     position: absolute;

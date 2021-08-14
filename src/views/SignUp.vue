@@ -8,7 +8,7 @@
         </div>
         <div class="sign-form">
           <div class="input-field">
-            <img class="input-icon" :src="userIcon" />
+            <img class="input-icon" :src="usersIcon" />
             <select v-model="role" name="role" id="role">
               <option value="I want to.." selected disabled>I want to..</option>
               <option value="LEND">I want to Lend</option>
@@ -20,19 +20,19 @@
             <input v-model="name" type="text" placeholder="Full Name" />
           </div>
           <div class="input-field">
-            <img class="input-icon" :src="userIcon" />
+            <img class="input-icon" :src="emailIcon" />
             <input v-model="email" type="text" placeholder="Email" />
           </div>
           <div class="input-field">
-            <img class="input-icon" :src="userIcon" />
+            <img class="input-icon" :src="callIcon" />
             <input v-model="phone" type="text" placeholder="Phone Number" />
           </div>
           <div class="input-field">
-            <img class="input-icon" :src="pwdIcon" />
+            <img class="input-icon" :src="passwordIcon" />
             <input v-model="password" type="password" placeholder="Password" />
           </div>
           <div class="input-field">
-            <img class="input-icon" :src="pwdIcon" />
+            <img class="input-icon" :src="passwordIcon" />
             <input v-model="repassword" type="password" placeholder="Re-enter Password" />
           </div>
           <ion-button color="primary" @click="signUp">Sign Up</ion-button>
@@ -63,8 +63,13 @@ export default  defineComponent({
       repassword: '',
       email: '',
       phone: '',
+      usersIcon : require('@/assets/users-icon.png'),
       userIcon : require('@/assets/user-icon.png'),
-      pwdIcon: require('@/assets/pwd-icon.png')
+      pwdIcon: require('@/assets/pwd-icon.png'),
+      borrowIcon: require('@/assets/borrow-icon.png'),
+      emailIcon: require('@/assets/email-icon.png'),
+      callIcon: require('@/assets/call-icon.png'),
+      passwordIcon: require('@/assets/password-icon.png')
     }
   },
   methods:{
