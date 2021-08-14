@@ -1,10 +1,23 @@
 <template>
   <ion-page>
-    <Header />
+    <VioletHeader />
     <ion-content :fullscreen="true">
       <div class="homepage-content">
-        <div class="lent-earn">
-          LENT
+        <div class="home-funds">
+          <div class="funds">
+            <h4>Funds</h4>
+            <h3>₹ 20,00,000</h3>
+          </div>
+          <div class="lent-earned">
+            <div class="lent">
+              <h4>Lent</h4>
+              <h3>₹ 2,00,000</h3>
+            </div>
+            <div class="earned">
+              <h4>Principal + Interest</h4>
+              <h3>₹ 2,50,000</h3>
+            </div>
+          </div>
         </div>
         <div class="loan-requests">
           <h3 class="section-heading">Loan Requests</h3>
@@ -42,7 +55,7 @@
 <script lang="ts">
 import { IonPage, IonContent } from '@ionic/vue';
 import { defineComponent } from 'vue';
-import Header from '@/components/Header.vue';
+import VioletHeader from '@/components/VioletHeader.vue';
 
 // import Upcoming from '@/views/Home/Upcoming.vue';
 // import Operations from '@/views/Home/Operations.vue';
@@ -52,7 +65,7 @@ export default defineComponent({
   components: { 
     IonContent, 
     IonPage,
-    Header,
+    VioletHeader,
     // Upcoming,
     // Operations
   },
@@ -201,5 +214,47 @@ export default defineComponent({
 
 .loan-card .detail {
     width: calc(100% - 180px);
+}
+.home-funds {
+  background:#4A00E0;
+}
+.home-funds {
+    background: #4A00E0;
+    padding: 10px 30px 50px;
+    margin-top: -1px;
+}
+
+.home-funds h4, .home-funds h3 {
+    color: #ffffff;
+    font-family: 'Roboto',sans-serif;
+}
+
+.home-funds h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    opacity: 0.75;
+    text-transform: uppercase;
+}
+
+.home-funds h3 {
+    font-size: 22px;
+    margin: 0;
+    line-height: 1;
+}
+
+.home-funds > div {
+    margin-bottom: 20px;
+}
+
+.home-funds .funds h3 {
+    font-size: 40px;
+}
+
+.home-funds .lent-earned {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 30px 0 0;
 }
 </style>
