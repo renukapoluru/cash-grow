@@ -93,7 +93,7 @@ export default defineComponent({
           });
           if(userFound) {
             if(passwordMatched) {
-              this.$router.push('/tabs/tab1');
+              this.$router.push('/lender-tabs/tab1');
             } else {
               this.callToast('Incorrect password');
             }
