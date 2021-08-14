@@ -4,31 +4,50 @@
     <ion-content :fullscreen="true">
       <div class="apply-for-loan loan-application">
         <ion-item>
-          {{ amount }}
-          <ion-range @ionChange="changeAmount" v-model="amount" min="50000" max="1500000" color="secondary">
-            <ion-label slot="start">50000</ion-label>
-            <ion-label slot="end">1500000</ion-label>
-          </ion-range>
+          <ion-label position="fixed">Amount</ion-label>
+          <ion-input v-model="amount"></ion-input>
         </ion-item>
-
+        <ion-item>
+          <ion-label position="fixed">ROI</ion-label>
+          <ion-input v-model="interest"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">Tenure</ion-label>
+          <ion-select v-model="tenure" placeholder="Select tenure">
+            <ion-select-option value="6">6 Months</ion-select-option>
+            <ion-select-option value="12">12 Months</ion-select-option>
+            <ion-select-option value="24">24 Months</ion-select-option>
+            <ion-select-option value="36">36 Months</ion-select-option>
+            <ion-select-option value="48">48 Months</ion-select-option>
+            <ion-select-option value="60">60 Months</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button color="primary" @click="applyLoan">APPLY</ion-button>
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonPage, IonContent } from '@ionic/vue';
+import { IonPage, IonContent, IonInput,IonSelect,IonSelectOption } from '@ionic/vue';
 import Header from '@/components/Header.vue';
+import { defineComponent } from 'vue';
+import { Storage } from '@capacitor/storage';
 
-export default  {
+export default  defineComponent({
   name: 'LoanApplication',
   components: { 
     IonContent, 
     IonPage,
-    Header
+    Header,
+    IonInput,
+    IonSelect,
+    IonSelectOption
   },
   data: () => ({
-    amount: 50000,
+    amount: null,
+    interest: null,
+    tenure: null,
     nextIcon: require('@/assets/next.png'),
     loansInfo: [
       {
@@ -64,11 +83,45 @@ export default  {
     ]
   }),
   methods: {
-    changeAmount(amount: number) {
-      console.log('Amount changed', amount);
+    async applyLoan() {
+      console.log('Loan', this.amount, this.tenure,this.interest);
+      const item: any= await Storage.get({ key: 'user' });
+      console.log('User',JSON.parse(item.value));
+      const user: any = JSON.parse(item.value);
+      const data = {
+          type: 'PERSONAL',
+          amount: this.amount,
+          tenure: this.tenure,
+          interest: this.interest,
+          profilePic: user.profilePic,
+          name: user.name,
+          rating: user.rating,
+          userId: user.id
+        }
+          fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users/'+user.id, {
+            method: 'PUT', // or 'PUT'
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          }).then(response => response.json())
+          .then(res => {
+            const loans = user.loans;
+            loans.push(res);
+            fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/loans', {
+            method: 'POST', // or 'PUT'
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ loans: loans}),
+          })
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
     }
   }
-}
+})
 </script>
 <style>
 .apply-for-loan {

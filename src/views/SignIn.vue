@@ -71,22 +71,7 @@ export default defineComponent({
                 role = entry.role;
                 if(entry.password == this.password) {
                   passwordMatched = true;
-                    const user = [{
-                      key: 'role',
-                      value: entry.role
-                    },
-                    {
-                      key: 'email',
-                      value: entry.email
-                    },
-                    {
-                      key: 'id',
-                      value: entry.id
-                    },
-                    {
-                      key: 'uuid',
-                      value: entry.profileId
-                    }];
+                    const user = entry;
                     Storage.set({ key: 'user', value:JSON.stringify(user)});
                 }
               }

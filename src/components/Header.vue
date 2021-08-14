@@ -2,7 +2,7 @@
   <div id="header">
     <div class="hello-user">
         <h3>{{ firstText || 'Hello!' }}</h3>
-        <h4>{{ secondText || 'Renuka Poluru'}}</h4>
+        <h4>{{ secondText || userName}}</h4>
       </div>
       <div class="notification">
         <img :src="notificationIcon" />
@@ -12,15 +12,25 @@
 
 <script lang="ts">
 
+import { Storage } from '@capacitor/storage';
+
 export default {
   name: 'Header',
   props: {
     firstText: { type: String},
-    secondText: { type: String }
+    secondText: { type: String}
   },
   data: () => ({
+    userName : '',
     notificationIcon : require('@/assets/notification.png'),
   }),
+  async mounted() {
+    const item: any= await Storage.get({ key: 'user' });
+    console.log('User',JSON.parse(item.value));
+    const user: { name: string} = JSON.parse(item.value);
+    this.userName = user.name;
+    console.log('Name', this.userName);
+  }
 }
 </script>
 

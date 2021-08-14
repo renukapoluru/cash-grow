@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonContent } from '@ionic/vue';
+import { IonPage, IonContent, toastController } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 export default  defineComponent({
@@ -93,9 +93,12 @@ export default  defineComponent({
           .then(response => response.json())
           .then(data => {
             console.log('Success:', data);
+            this.callToast('Account created. Please sign in.');
+            this.$router.push('/signin');
           })
           .catch((error) => {
             console.error('Error:', error);
+            this.callToast('Error creating account.');
           });
         },
         createUserId() {
@@ -106,6 +109,15 @@ export default  defineComponent({
           }
           ID += Math.floor(Math.random()*(999-100+1)+100);
           return ID;
+        },
+        async callToast(message: string) {
+
+          const toast = await toastController
+            .create({
+              message: message,
+              duration: 2000
+            })
+          return toast.present();
         }
     }
 });
