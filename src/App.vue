@@ -75,7 +75,8 @@ body a {
 .sign-up-in-page .sign-form {
   padding-top:80px;
 }
-.input-field input {
+.input-field input,
+.input-field select {
     box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
     border: 0;
     display: block;
@@ -87,6 +88,7 @@ body a {
     padding: 9px 10px 9px 50px;
     border: 1px solid #e1e1e1;
     border-radius: 5px;
+    height: 52px;
 }
 
 .input-field {

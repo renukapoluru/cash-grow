@@ -9,12 +9,12 @@
         <div class="sign-form">
           <div class="input-field">
             <img class="input-icon" :src="userIcon" />
-            <input type="text" placeholder="User ID" />
+            <input v-model="email" type="text" placeholder="Email" />
           </div><div class="input-field">
             <img class="input-icon" :src="pwdIcon" />
-            <input type="password" placeholder="Password" />
+            <input v-model="password" type="password" placeholder="Password" />
           </div>
-          <ion-button color="primary" href="/tabs/tab1">Sign In</ion-button>
+          <ion-button color="primary" @click="signIn">Sign In</ion-button>
         </div>
       </div>
       <div class="signup-bottom">
@@ -25,19 +25,95 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonContent } from '@ionic/vue';
+import { IonPage, IonContent, toastController } from '@ionic/vue';
+import { defineComponent } from 'vue';
+import { Storage } from '@capacitor/storage';
 
-export default  {
+export default defineComponent({
   name: 'SignIn',
   components: { 
     IonContent, 
     IonPage
   },
-  data: () => ({
-    userIcon : require('@/assets/user-icon.png'),
-    pwdIcon: require('@/assets/pwd-icon.png'), 
-  })
-}
+  data(){
+    return{
+      users: [],
+      userId:'',
+      email: '',
+      password: '',
+      userIcon : require('@/assets/user-icon.png'),
+      pwdIcon: require('@/assets/pwd-icon.png'), 
+    }
+  },
+  mounted() {
+    this.fetchUsers();
+  },
+  methods:{
+        fetchUsers() {
+          fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users')
+          .then(response => response.json())
+          .then(data => {
+            this.users = data;
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+        },
+        async signIn(){
+          console.log('Users', this.users);
+          let userFound = false;
+          let passwordMatched = false;
+          await this.users.forEach((entry: any) => {
+              console.log(entry);
+              if(entry.email == this.email) {
+                userFound = true;
+                if(entry.password == this.password) {
+                  passwordMatched = true;
+                    const user = [{
+                      key: 'role',
+                      value: entry.role
+                    },
+                    {
+                      key: 'email',
+                      value: entry.email
+                    },
+                    {
+                      key: 'id',
+                      value: entry.id
+                    },
+                    {
+                      key: 'uuid',
+                      value: entry.profileId
+                    }];
+                    Storage.set({ key: 'user', value:JSON.stringify(user)});
+                }
+              }
+          });
+          if(userFound) {
+            if(passwordMatched) {
+              const user: any= await Storage.get({ key: 'user' });
+              const userDetails = JSON.parse(user);
+              console.log('UserDetails', userDetails);
+              this.$router.push('/tabs/tab1');
+            } else {
+              this.callToast('Incorrect password');
+            }
+          } else {
+            this.callToast('User not found');
+          }
+        },
+        async callToast(message: string) {
+
+          const toast = await toastController
+            .create({
+              message: message,
+              duration: 2000
+            })
+          return toast.present();
+        }
+    }
+
+});
 </script>
 <style>
 </style>
