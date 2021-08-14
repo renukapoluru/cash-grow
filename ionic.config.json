@@ -1,0 +1,7 @@
+{
+  "name": "CashGrow",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
