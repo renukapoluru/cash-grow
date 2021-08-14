@@ -63,10 +63,12 @@ export default defineComponent({
           console.log('Users', this.users);
           let userFound = false;
           let passwordMatched = false;
+          let role = '';
           await this.users.forEach((entry: any) => {
               console.log(entry);
               if(entry.email == this.email) {
                 userFound = true;
+                role = entry.role;
                 if(entry.password == this.password) {
                   passwordMatched = true;
                     const user = [{
@@ -91,10 +93,11 @@ export default defineComponent({
           });
           if(userFound) {
             if(passwordMatched) {
-              const user: any= await Storage.get({ key: 'user' });
-              const userDetails = JSON.parse(user);
-              console.log('UserDetails', userDetails);
-              this.$router.push('/tabs/tab1');
+              if(role == 'BORROW') {
+                this.$router.push('/tabs/tab1');
+              } else {
+                this.$router.push('/tabs/tab2');
+              }
             } else {
               this.callToast('Incorrect password');
             }
