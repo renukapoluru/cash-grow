@@ -28,29 +28,13 @@ export default {
 
 <style scoped>
 #header {
-    padding:30px 30px 20px;
     background:#4A00E0;
-    z-index: 1;
-}
-#header .user-notification {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 #header h3 {
-    font-size: 1.4rem;
-    margin-bottom: 5px;
-    font-family: 'Playfair Display', serif;
-    font-weight: bold;
     color:#fff;
 }
 
 #header h4 {
     color: #ffffffcf;
-    font-size: 1rem;
-    margin:0;
-}
-#header .notification img {
-  cursor: pointer;
 }
 </style>

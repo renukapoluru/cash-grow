@@ -37,6 +37,9 @@ export default  {
 .homepage-content {
   padding:0 30px;
 }
+.homepage-content.borrower {
+  padding:0;
+}
 .homepage-content .feature-card {
   background: #4A00E0;
   border-radius: 10px;

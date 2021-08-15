@@ -28,6 +28,40 @@ body a {
     text-decoration: none;
 }
 
+/* Header */
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:30px 20px 20px;
+    background:#fff;
+    z-index: 1;
+}
+
+#header .user-notification {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#header h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+}
+
+#header h4 {
+    color: #7A7A7A;
+    font-size: 0.9rem;
+    margin:0;
+}
+#header .notification img {
+  cursor: pointer;
+}
+
 /* First Screen */
 
 #first-screen {
@@ -130,5 +164,193 @@ body a {
     border-color: #4A00E0;
 }
 
+/* Page */
+
+.page-padding {
+  padding:0px 20px;
+}
+
+/* Loan Card */
+.loan-requests {
+  padding:30px 20px;
+}
+
+.loan-card .card-top {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.loan-card .card-top .profile-pic {
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.loan-card .card-top .profile-pic img {
+    width: 100%;
+    height: 100%;
+}
+
+.loan-card .profile-details > h4 {
+    margin-bottom: 5px;
+    height:20px;
+    overflow: hidden;
+}
+
+.loan-card .profile-details > h4 img {
+    max-width: none;
+    width: 68px;
+}
+
+.loan-card .profile-details.image-rating {
+}
+
+.loan-card .tenure-interest {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.loan-card .tenure-interest > h3 {margin-right: 30px;}
+
+.loan-card .detail {
+    width: calc(100% - 180px);
+}
+
+.loan-card .profile-details h3 {
+    font-family: 'Roboto',sans-serif;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.loan-card .profile-details h3 {font-family: 'Roboto',sans-serif;font-size: 16px;margin-bottom: 5px;}
+
+.loan-card .image-rating h4.purpose {
+    height: auto;
+    color: #B9AEAE;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.loan-card .profile-details h3 {font-family: 'Roboto',sans-serif;font-size: 16px;margin-bottom: 5px;}
+
+.loan-card .image-rating h4.purpose {
+    height: auto;
+    color: #B9AEAE;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.loan-card .card-bottom {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.loan-card .card-bottom h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    font-family: 'Roboto',sans-serif;
+    margin-bottom: 5px;
+}
+
+.card-bottom > div {
+    text-align: center;
+    width: 31.333%;
+    padding: 10px 0px;
+    padding-right: 1.5%;
+    border-right: 1px solid #D2CCCC;
+    margin-right: 1.5%;
+}
+
+.loan-card .card-bottom h4 {
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #787878;
+    margin: 0;
+}
+
+.card-bottom > div:last-child {
+    padding-right: 0;
+    border-right: 0;
+    margin-right: 0;
+}
+
+.home-funds {
+  background:#4A00E0;
+}
+.home-funds {
+    background: #4A00E0;
+    padding: 10px 30px 50px;
+    margin-top: -1px;
+}
+
+.home-funds h4, .home-funds h3 {
+    color: #ffffff;
+    font-family: 'Roboto',sans-serif;
+}
+
+.home-funds h4 {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    opacity: 0.75;
+    text-transform: uppercase;
+}
+
+.home-funds h3 {
+    font-size: 20px;
+    margin: 0;
+    line-height: 1;
+}
+
+.home-funds > div {
+    margin-bottom: 20px;
+}
+
+.home-funds .funds h3 {
+    font-size: 30px;
+}
+
+.home-funds .lent-earned {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 30px 0 0;
+}
+
+/* Table Details */
+
+.table-details {
+    padding: 5px 20px;
+    background: #F5EFEF;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.table-details .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+
+.table-details .row > h4 {
+    width: 49%;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000000;
+    margin: 0;
+}
+
+.table-details .row > h4:first-child {
+    margin-right: 2%;
+}
 
 </style>

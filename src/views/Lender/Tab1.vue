@@ -2,7 +2,7 @@
   <ion-page>
     <VioletHeader />
     <ion-content :fullscreen="true">
-      <div class="homepage-content">
+      <div class="homepage-content borrower-hp">
         <div class="home-funds">
           <div class="funds">
             <h4>Funds</h4>
@@ -23,24 +23,34 @@
           <h3 class="section-heading">Loan Requests</h3>
           <div class="loans-list">
             <div class="loan-card" v-for="loan in loans" :key="loan.id">
-              <div class="image-rating">
-                <img :src="loan.profilePic" />
-                <h4>
-                  <span class="colored-rating" :style="{'color':getRatingColor(loan.rating),'width': getColorWidth(loan.rating)}">
-                    <img :src="getRatingColor(loan.rating)" />
-                  </span>
-                  <span class="placeholder-rating" :style="{'color':'#bcb7b7'}">
-                    <img :src="placeholderRatingIcon" />
-                  </span>
-                </h4>
-              </div>
-              <div class="detail">
-                <h4>{{ loan.type}}</h4>
-                <h2 class="amount"><span class="rupee">&#8377;</span> {{ loan.amount }}</h2>
-                <div class="tenure-interest">
-                <h3><img :src="require('@/assets/calendar.png')" /> {{ loan.tenure }} months</h3>
-                <h3><img :src="require('@/assets/percent.png')" /> {{ loan.interest }} p.a</h3>
+              <div class="card-top">
+                <div class="profile-pic">
+                  <img :src="loan.profilePic" />
                 </div>
+                <div class="profile-details image-rating">
+                  <h4 :style="{'color':getRatingColor(loan.rating),'width': getColorWidth(loan.rating)}">
+                   <img :src="getRatingColor(loan.rating)" />
+                  </h4>
+                  <h3 class="name">{{ loan.name }}</h3>
+                  <h4 class="purpose">PURPOSE: {{ loan.type }}</h4>
+                </div>
+              </div>
+              <div class="card-bottom">
+                <div class="principal">
+                  <h3>₹{{ loan.amount }}</h3>
+                  <h4>Principal</h4>
+                </div>
+                <div class="tenure">
+                  <h3>{{ loan.tenure }}</h3>
+                  <h4>Tenure</h4>
+                </div>
+                <div class="interest">
+                  <h3>{{ loan.interest }}</h3>
+                  <h4>ROI</h4>
+                </div>
+              </div>
+              <div class="disburse-loan">
+                <ion-button color="primary" :href="'/lender/loans/'+loan.id">LEND</ion-button>
               </div>
             </div>
           </div>
@@ -102,159 +112,21 @@ export default defineComponent({
     },
     getColorWidth(rating: number) {
       if(rating >= 5) {
-        return '110px';
+        return '68px';
       } else {
-        return 22*rating+1+'px'
+        return 13.6*rating+1+'px'
       }
     }
   }
 });
 </script>
 <style>
-.loan-requests {
-  padding:30px 30px;
-}
-.loan-card {
-    background: #F5EFEF;
-    padding: 40px 30px;
-    border-radius: 10px;
-    margin: 30px 0 0;
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
-}
-
-.loan-card .image-rating {
-    width: 145px;
-    text-align: center;
-    margin-right: 35px;
-    padding:10px 0;
-    padding-right: 35px;
-    border-right: 2px solid #B2B2B2;
-
-}
-
-.image-rating h4 > span {
-  display:block;
-}
-
-.loan-card .image-rating h4 img {
-    position: relative;
-    top: -45px;
-}
-
-.loan-card .image-rating h4 span.colored-rating {
-    width: 80px;
-    overflow: hidden;
-    z-index: 5;
-    position: relative;
-}
-
-.loan-card .image-rating span.placeholder-rating {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
-.loan-card .image-rating h4 {
-    position: relative;
-    height:20px;
-    text-align:left;
-    margin:0;
-}
-
-.loan-card .image-rating img {
-    width: 110px;
-    height: 110px;
-    border-radius: 100%;
-    margin-bottom: 10px;
-    max-width: none;
-}
-
-.loan-card .detail h4 {
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.loan-card .detail h3 {
-  font-family: 'Roboto',sans-serif;
-  color:#000;
-  display: flex;
-  align-items: center;
-}
-
-/* .loan-card .detail span {
-  color:#7A7A7A;
-} */
-
-.loan-card .detail h2.amount {
-  font-size: 40px;
-  color:#000;
-  font-family: 'Roboto',sans-serif;
-}
-
-.loan-card .detail h3 img {
-    max-width: 30px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 10px;
-}
-
-.loan-card .tenure-interest {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-}
-
-.loan-card .tenure-interest > h3 {margin-right: 30px;}
-
-.loan-card .detail {
-    width: calc(100% - 180px);
-}
-.home-funds {
-  background:#4A00E0;
-}
-.home-funds {
-    background: #4A00E0;
-    padding: 10px 30px 50px;
-    margin-top: -1px;
-}
-
-.home-funds h4, .home-funds h3 {
-    color: #ffffff;
-    font-family: 'Roboto',sans-serif;
-}
-
-.home-funds h4 {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    opacity: 0.75;
-    text-transform: uppercase;
-}
-
-.home-funds h3 {
-    font-size: 22px;
-    margin: 0;
-    line-height: 1;
-}
-
-.home-funds > div {
+.homepage-content .loan-card {
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    padding: 20px 15px;
     margin-bottom: 20px;
-}
-
-.home-funds .funds h3 {
-    font-size: 40px;
-}
-
-.home-funds .lent-earned {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin: 30px 0 0;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgb(0 0 0 / 25%);
 }
 </style>

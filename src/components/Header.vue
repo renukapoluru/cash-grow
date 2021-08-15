@@ -35,27 +35,5 @@ export default {
 </script>
 
 <style scoped>
-#header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding:30px 30px 20px;
-    background:#fff;
-    z-index: 1;
-}
-#header h3 {
-    font-size: 1.4rem;
-    margin-bottom: 5px;
-    font-family: 'Playfair Display', serif;
-    font-weight: bold;
-}
 
-#header h4 {
-    color: #7A7A7A;
-    font-size: 1rem;
-    margin:0;
-}
-#header .notification img {
-  cursor: pointer;
-}
 </style>
