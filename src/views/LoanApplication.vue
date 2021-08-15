@@ -31,6 +31,9 @@
 <script lang="ts">
 import { IonPage, IonContent, IonInput,IonSelect,IonSelectOption } from '@ionic/vue';
 import Header from '@/components/Header.vue';
+
+import { callToast } from '@/common/utils';
+
 import { defineComponent } from 'vue';
 import { Storage } from '@capacitor/storage';
 
@@ -97,28 +100,41 @@ export default  defineComponent({
           name: user.name,
           rating: user.rating,
           userId: user.id
-        }
-          fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users/'+user.id, {
-            method: 'PUT', // or 'PUT'
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          }).then(response => response.json())
-          .then(res => {
-            const loans = user.loans;
-            loans.push(res);
-            fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/loans', {
+        };
+        fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/loans', {
             method: 'POST', // or 'PUT'
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ loans: loans}),
-          })
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+            body: JSON.stringify(data),
+        }).then(response => response.json())
+        .then(res => {
+            callToast('Loan request created');
+            const loan = res;
+            fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users/'+user.id).then(response => response.json())
+            .then(userDetails => {
+              const loans = userDetails.loans;
+              loans.push(loan);
+              fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users/'+user.id, {
+                method: 'PUT', // or 'PUT'
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ loans: loans}),
+              }).then(response => response.json())
+              .then(() => {
+                this.$router.push('/tabs/tab2');
+              }).catch((error) => {
+                console.error('Error:', error);
+              });
+            }).catch((error) => {
+              console.error('Error:', error);
+            });
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          callToast('Error while creating loan request');
+        });
     }
   }
 })
