@@ -75,14 +75,17 @@ export default  defineComponent({
   methods:{
         async signUp(){
            //const response = await axios.get("https://jsonplaceholder.typicode.com/todos");
-           console.log(this.role);
-           const data = {
-             name: this.name,
-             role: this.role,
-             email: this.email,
-             userId: this.createUserId(),
-             password: this.password
-           }
+           console.log(this.role);           
+          const rndInt = Math.floor(Math.random() * 12) + 1;
+          const limit = rndInt*500*1000;
+          const data = {
+            name: this.name,
+            role: this.role,
+            email: this.email,
+            userId: this.createUserId(),
+            password: this.password,
+            limit: limit
+          };
           fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users', {
             method: 'POST', // or 'PUT'
             headers: {

@@ -353,4 +353,54 @@ body a {
     margin-right: 2%;
 }
 
+/* Default */
+
+.default-tab-padding {
+    padding:0 20px;
+}
+
+.all-text-white,
+.all-text-white h1,
+.all-text-white h2,
+.all-text-white h3,
+.all-text-white h4,
+.all-text-white h5,
+.all-text-white h6,
+.all-text-white p {
+    color:#fff;
+}
+
+/* CARD */
+
+.application {
+    background-image: linear-gradient(#FF035E, #F916C7);
+    border-radius: 10px;
+    padding:40px 25px;
+}
+
+.application h5 {
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 799;
+    color: #EDEDED;
+    margin-bottom: 5px;
+}
+
+.application h3 {
+    margin: 0;
+    font-family: 'Roboto',sans-serif;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.application {
+    display: flex;
+    flex-wrap: wrap;
+    align-items:center;
+    justify-content: space-between;
+}
+
+.application img {
+    vertical-align: middle;
+}
 </style>

@@ -9,3 +9,29 @@ export const callToast = async(message: string) => {
     })
     return toast.present();
 };
+
+export const formatCurrency = (amount: any) => {
+    amount=amount.toString();
+    let lastThree = amount.substring(amount.length-3);
+    const otherNumbers = amount.substring(0,amount.length-3);
+    if(otherNumbers != '')
+        lastThree = ',' + lastThree;
+    const res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    return res;
+};
+
+export const loanTypeImages = {
+    'PERSONAL' : 'https://i.im.ge/2021/08/26/QMH4Rc.png',
+    'EDUCATIONAL': 'https://i.im.ge/2021/08/26/QMpM3x.png',
+    'HOME': 'https://i.im.ge/2021/08/26/QMpQ4a.png',
+    'BUSINESS': 'https://i.im.ge/2021/08/26/QMpoqJ.png',
+    'OTHER': 'https://i.im.ge/2021/08/26/QMplzS.png',
+    'DEFAULT': 'https://i.im.ge/2021/08/26/QMplzS.png'
+}
+
+export const statusColor = {
+    'CREATED' : '',
+    'ACTIVE': '',
+    'DISBURSED': '',
+    'REJECTED': 'red'
+}

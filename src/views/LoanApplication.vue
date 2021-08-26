@@ -3,10 +3,20 @@
     <Header firstText="Personal Loan Application" secondText="Please fill the details"/>
     <ion-content :fullscreen="true">
       <div class="apply-for-loan loan-application">
-        <ion-item>
+      <ion-item>
+          <div class="input-group">
+            <div class="label">Amount</div>
+            <div class="input-value">{{ amount }}</div>
+          </div>
+          <ion-range min="50000" max="150000" pin step="1000" @ionChange="amountChanged" >
+            <ion-label slot="start">50000</ion-label>
+            <ion-label slot="end">150000</ion-label>
+          </ion-range>
+        </ion-item>
+        <!-- <ion-item>
           <ion-label position="fixed">Amount</ion-label>
           <ion-input v-model="amount"></ion-input>
-        </ion-item>
+        </ion-item> -->
         <ion-item>
           <ion-label position="fixed">ROI</ion-label>
           <ion-input v-model="interest"></ion-input>
@@ -48,7 +58,7 @@ export default  defineComponent({
     IonSelectOption
   },
   data: () => ({
-    amount: null,
+    amount: 50000,
     interest: null,
     tenure: null,
     nextIcon: require('@/assets/next.png'),
@@ -85,11 +95,16 @@ export default  defineComponent({
       }
     ]
   }),
+  mounted() {
+    console.log('route', this.$router.params.type);
+  },
   methods: {
+    amountChanged(value) {
+      console.log('changed value is', value);
+    },
     async applyLoan() {
       console.log('Loan', this.amount, this.tenure,this.interest);
       const item: any= await Storage.get({ key: 'user' });
-      console.log('User',JSON.parse(item.value));
       const user: any = JSON.parse(item.value);
       const data = {
           type: 'PERSONAL',
@@ -99,9 +114,10 @@ export default  defineComponent({
           profilePic: user.profilePic,
           name: user.name,
           rating: user.rating,
-          userId: user.id
+          userId: user.id,
+          status: 'CREATED'
         };
-        fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/loans', {
+        fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/loanapplications', {
             method: 'POST', // or 'PUT'
             headers: {
               'Content-Type': 'application/json',
@@ -110,17 +126,17 @@ export default  defineComponent({
         }).then(response => response.json())
         .then(res => {
             callToast('Loan request created');
-            const loan = res;
+            const application = res;
             fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users/'+user.id).then(response => response.json())
             .then(userDetails => {
-              const loans = userDetails.loans;
-              loans.push(loan);
+              const applications = userDetails.applications;
+              applications.push(application);
               fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users/'+user.id, {
                 method: 'PUT', // or 'PUT'
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ loans: loans}),
+                body: JSON.stringify({ applications: applications}),
               }).then(response => response.json())
               .then(() => {
                 this.$router.push('/tabs/tab2');

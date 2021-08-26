@@ -76,7 +76,7 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
-    path: '/loan-application',
+    path: '/loan-application/:type',
     component: () => import('@/views/LoanApplication.vue')
   },
 ]

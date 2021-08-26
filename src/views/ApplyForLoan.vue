@@ -4,7 +4,7 @@
     <ion-content :fullscreen="true">
       <div class="apply-for-loan">
         <div class="loan" v-for="(loan,index) in loansInfo" :key="index" :style="loan.gradient">
-          <a href="/loan-application">
+          <a :href="'/loan-application/'+loan.route">
           <h4>{{loan.type}}</h4>
           <h3>{{loan.amountOnwards}}</h3>
           <h4>{{loan.interestRate}}</h4>
@@ -31,30 +31,35 @@ export default  {
     nextIcon: require('@/assets/next.png'),
     loansInfo: [
       {
+        route: 'personal',
         type: 'PERSONAL LOAN',
         amountOnwards: '₹ 50,000 onwards',
         interestRate: 'ROI - 12.5%+',
         gradient: 'background: linear-gradient(180deg, #FF035E 0%, #F916C7 100%);'
       },
       {
+        route: 'educational',
         type: 'EDUCATIONAL LOAN',
         amountOnwards: '₹ 12,00,000 onwards',
         interestRate: 'ROI - 12.5%+',
         gradient: 'background: linear-gradient(180deg, #005CE7 0%, #24E2FC 100%);'
       },
       {
+        route: 'home',
         type: 'HOME LOAN',
         amountOnwards: '₹ 20,00,000 onwards',
         interestRate: 'ROI - 12.5%+',
         gradient: 'background: linear-gradient(180deg, #FF6B00 0%, #FF1694 100%);'
       },
       {
+        route:'business',
         type: 'BUSINESS LOAN',
         amountOnwards: '₹ 50,00,000 onwards',
         interestRate: 'ROI - 12.5%+',
         gradient: 'background: linear-gradient(180deg, #B3CF05 0%, #24E2FC 100%);'
       },
       {
+        route: 'other',
         type: 'OTHER LOAN',
         amountOnwards: '₹ 7,00,000 onwards',
         interestRate: 'ROI - 12.5%+',

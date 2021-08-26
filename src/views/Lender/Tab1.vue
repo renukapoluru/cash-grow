@@ -70,6 +70,7 @@ import VioletHeader from '@/components/VioletHeader.vue';
 // import Upcoming from '@/views/Home/Upcoming.vue';
 // import Operations from '@/views/Home/Operations.vue';
 
+import { Storage } from '@capacitor/storage';
 export default defineComponent({
   name: 'Tab1',
   components: { 

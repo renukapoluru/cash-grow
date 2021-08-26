@@ -5,7 +5,7 @@
       <div class="homepage-content">
         <div class="feature-card">
             <h4>MAXIMUM LIMIT</h4>
-            <h1>₹ 8,00,000</h1>
+            <h1>₹ {{ limit }}</h1>
         </div>
         <ion-button class="apply" href="/apply" color="primary">APPLY</ion-button>
         <Upcoming />
@@ -22,6 +22,10 @@ import Header from '@/components/Header.vue';
 import Upcoming from '@/views/Home/Upcoming.vue';
 import Operations from '@/views/Home/Operations.vue';
 
+import { Storage } from '@capacitor/storage';
+
+import { formatCurrency } from '@/common/utils';
+
 export default  {
   name: 'Tab1',
   components: { 
@@ -30,12 +34,21 @@ export default  {
     Header,
     Upcoming,
     Operations
+  },
+  data: () => ({
+    limit : ''
+  }),
+  async mounted() {
+    const item: any= await Storage.get({ key: 'user' });
+    console.log('User',JSON.parse(item.value));
+    const user: { limit: string} = JSON.parse(item.value);
+    this.limit = await formatCurrency(user.limit);
   }
 }
 </script>
 <style>
 .homepage-content {
-  padding:0 30px;
+  padding:0 20px;
 }
 .homepage-content.borrower {
   padding:0;
