@@ -90,7 +90,6 @@ export default  {
       try { 
         const id = user.accountID;
         const res = await CashGrowManager.getAccountBalance(id);
-        console.log('Account Balance Res is ', res.data);
         this.balance = formatCurrency(res.data.balance);
       } catch(e) {
         console.log('Error fetching account details', e);

@@ -10,7 +10,7 @@
             
           <ion-tab-button tab="tab2" href="/lender-tabs/tab2">
             <ion-icon :icon="calendarOutline" />
-            <ion-label>REPAYMENTS</ion-label>
+            <ion-label>OVERVIEW</ion-label>
           </ion-tab-button>
           
           <ion-tab-button tab="tab3" href="/lender-tabs/tab3">
