@@ -31,7 +31,7 @@
           </div>
           <div class="input-field">
             <img class="input-icon" :src="userIcon" />
-            <input v-model="lastame" type="text" placeholder="Last Name" />
+            <input v-model="lastname" type="text" placeholder="Last Name" />
           </div>
           <div class="input-field">
             <img class="input-icon" :src="dobIcon" />
@@ -110,86 +110,86 @@ export default  defineComponent({
           const year = dt.getFullYear();
           const month =  parseInt((dt.getMonth() < 10 ? '0' : '') + (dt.getMonth()+1));
           const day = parseInt((dt.getDate() < 10 ? '0' : '') + dt.getDate());
-          const accountHolder = {
-              "ifiID": "140793",
-              "formID": uniqueId(),
-              "spoolID": "123",
-              "individualType": "REAL",
-              "salutation": "Ms.",
-              "firstName": this.firstname,
-              "middleName": "",
-              "lastName": this.lastname,
-              "profilePicURL": "https://i.im.ge/2021/08/26/QQqB39.jpg",
-              "dob": {
-                  "year": year,
-                  "month": month,
-                  "day": day
-              },
-              "gender": this.gender,
-              "mothersMaidenName": "",
-              "kycDetails": {
-                  "kycStatus": "MINIMAL",
-                  "kycStatusPostExpiry": "string",
-                  "kycAttributes": {},
-                  "authData": {
-                      "PAN": ""
-                  },
-                  "authType": "PAN"
-              },
-              "vectors": [
-                  {
-                      "type": "p",
-                      "value": `+91${this.phone}`,
-                      "isVerified": false
-                  }
-              ],
-              "pops": [],
-              "customFields": {
-                  "companyID": [
-                      1,
-                      2,
-                      3
-                  ]
-              },
-              "tags": [
-                  {
-                      "type": "vbo",
-                      "value": "swiggy",
-                      "isVerified": false
-                  }
-              ],
-              "source": "postman"
-          };
-          console.log('Account Holder Body', accountHolder);
-          this.accountHolderRes = await CashGrowManager.createAccountHolder(accountHolder);
-          // const rndInt = Math.floor(Math.random() * 12) + 1;
-          // const limit = rndInt*500*1000;
-          // const data = {
-          //   firstname: this.firstname,
-          //   lastname: this.lastname,
-          //   role: this.role,
-          //   email: this.email,
-          //   userId: this.createUserId(),
-          //   password: this.password,
-          //   limit: limit
+          // const accountHolder = {
+          //     "ifiID": "140793",
+          //     "formID": uniqueId(),
+          //     "spoolID": "123",
+          //     "individualType": "REAL",
+          //     "salutation": "Ms.",
+          //     "firstName": this.firstname,
+          //     "middleName": "",
+          //     "lastName": this.lastname,
+          //     "profilePicURL": "https://i.im.ge/2021/08/26/QQqB39.jpg",
+          //     "dob": {
+          //         "year": year,
+          //         "month": month,
+          //         "day": day
+          //     },
+          //     "gender": this.gender,
+          //     "mothersMaidenName": "",
+          //     "kycDetails": {
+          //         "kycStatus": "MINIMAL",
+          //         "kycStatusPostExpiry": "string",
+          //         "kycAttributes": {},
+          //         "authData": {
+          //             "PAN": ""
+          //         },
+          //         "authType": "PAN"
+          //     },
+          //     "vectors": [
+          //         {
+          //             "type": "p",
+          //             "value": `+91${this.phone}`,
+          //             "isVerified": false
+          //         }
+          //     ],
+          //     "pops": [],
+          //     "customFields": {
+          //         "companyID": [
+          //             1,
+          //             2,
+          //             3
+          //         ]
+          //     },
+          //     "tags": [
+          //         {
+          //             "type": "vbo",
+          //             "value": "swiggy",
+          //             "isVerified": false
+          //         }
+          //     ],
+          //     "source": "postman"
           // };
-          // fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users', {
-          //   method: 'POST', // or 'PUT'
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //   },
-          //   body: JSON.stringify(data),
-          // })
-          // .then(response => response.json())
-          // .then(data => {
-          //   console.log('Success:', data);
-          //   this.callToast('Account created. Please sign in.');
-          //   this.$router.push('/signin');
-          // })
-          // .catch((error) => {
-          //   console.error('Error:', error);
-          //   this.callToast('Error creating account.');
-          // });
+          // console.log('Account Holder Body', accountHolder);
+          // this.accountHolderRes = await CashGrowManager.createAccountHolder(accountHolder);
+          const rndInt = Math.floor(Math.random() * 12) + 1;
+          const limit = rndInt*500*1000;
+          const data = {
+            firstname: this.firstname,
+            lastname: this.lastname,
+            role: this.role,
+            email: this.email,
+            userId: this.createUserId(),
+            password: this.password,
+            limit: limit
+          };
+          fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users', {
+            method: 'POST', // or 'PUT'
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Success:', data);
+            this.callToast('Account created. Please sign in.');
+            this.$router.push('/signin');
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            this.callToast('Error creating account.');
+          });
         },
         createUserId() {
           let ID = "";
