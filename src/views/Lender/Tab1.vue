@@ -93,7 +93,7 @@ export default defineComponent({
   },
   methods:{
     fetchLoans() {
-      fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/loans')
+      fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/loanapplications')
       .then(response => response.json())
       .then(data => {
         this.loans = data;

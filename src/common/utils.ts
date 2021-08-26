@@ -21,12 +21,12 @@ export const formatCurrency = (amount: any) => {
 };
 
 export const loanTypeImages = {
-    'PERSONAL' : 'https://i.im.ge/2021/08/26/QMH4Rc.png',
-    'EDUCATIONAL': 'https://i.im.ge/2021/08/26/QMpM3x.png',
-    'HOME': 'https://i.im.ge/2021/08/26/QMpQ4a.png',
-    'BUSINESS': 'https://i.im.ge/2021/08/26/QMpoqJ.png',
-    'OTHER': 'https://i.im.ge/2021/08/26/QMplzS.png',
-    'DEFAULT': 'https://i.im.ge/2021/08/26/QMplzS.png'
+    'personal' : 'https://i.im.ge/2021/08/26/QMH4Rc.png',
+    'educational': 'https://i.im.ge/2021/08/26/QMpM3x.png',
+    'home': 'https://i.im.ge/2021/08/26/QMpQ4a.png',
+    'business': 'https://i.im.ge/2021/08/26/QMpoqJ.png',
+    'other': 'https://i.im.ge/2021/08/26/QMplzS.png',
+    'default': 'https://i.im.ge/2021/08/26/QMplzS.png'
 }
 
 export const statusColor = {

@@ -130,7 +130,7 @@ export default  {
 </script>
 <style>
 .apply-for-loan {
-    padding: 0 30px;
+    padding: 0 20px;
 }
 
 .apply-for-loan h3,
@@ -148,7 +148,7 @@ rgba(0, 0, 0, 0.25);
 }
 
 .apply-for-loan {
-    padding: 0 30px;
+    padding: 0 20px;
 }
 
 .apply-for-loan h4 {

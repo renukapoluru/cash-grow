@@ -96,7 +96,7 @@ export default  defineComponent({
     ]
   }),
   mounted() {
-    console.log('route', this.$router.params.type);
+    console.log('route', this.$route.params.type);
   },
   methods: {
     amountChanged(value) {
@@ -107,7 +107,7 @@ export default  defineComponent({
       const item: any= await Storage.get({ key: 'user' });
       const user: any = JSON.parse(item.value);
       const data = {
-          type: 'PERSONAL',
+          type: this.$route.params.type,
           amount: this.amount,
           tenure: this.tenure,
           interest: this.interest,
@@ -157,7 +157,7 @@ export default  defineComponent({
 </script>
 <style>
 .apply-for-loan {
-    padding: 0 30px;
+    padding: 0 20px;
 }
 
 </style>
