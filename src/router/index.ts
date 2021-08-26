@@ -32,6 +32,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Lender/LoanRequest/LoanRequestDetails.vue')
   },
   {
+    path: '/lender/addfunds',
+    component: () => import('@/views/Lender/AddFunds.vue')
+  },
+  {
     path: '/tabs/',
     component: Tabs,
     children: [

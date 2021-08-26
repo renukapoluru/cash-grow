@@ -223,12 +223,12 @@ body a {
 }
 
 .loan-card .profile-details h3 {
-    font-family: 'Roboto',sans-serif;
+    font-family: 'PT Sans',sans-serif;
     font-size: 16px;
     margin-bottom: 5px;
 }
 
-.loan-card .profile-details h3 {font-family: 'Roboto',sans-serif;font-size: 16px;margin-bottom: 5px;}
+.loan-card .profile-details h3 {font-family: 'PT Sans',sans-serif;font-size: 16px;margin-bottom: 5px;}
 
 .loan-card .image-rating h4.purpose {
     height: auto;
@@ -238,7 +238,7 @@ body a {
     text-transform: uppercase;
 }
 
-.loan-card .profile-details h3 {font-family: 'Roboto',sans-serif;font-size: 16px;margin-bottom: 5px;}
+.loan-card .profile-details h3 {font-family: 'PT Sans',sans-serif;font-size: 16px;margin-bottom: 5px;}
 
 .loan-card .image-rating h4.purpose {
     height: auto;
@@ -258,7 +258,7 @@ body a {
     font-size: 16px;
     font-weight: bold;
     color: #000000;
-    font-family: 'Roboto',sans-serif;
+    font-family: 'PT Sans',sans-serif;
     margin-bottom: 5px;
 }
 
@@ -290,13 +290,13 @@ body a {
 }
 .home-funds {
     background: #4A00E0;
-    padding: 10px 30px 50px;
+    padding: 10px 20px 50px;
     margin-top: -1px;
 }
 
 .home-funds h4, .home-funds h3 {
     color: #ffffff;
-    font-family: 'Roboto',sans-serif;
+    font-family: 'PT Sans',sans-serif;
 }
 
 .home-funds h4 {
@@ -372,6 +372,21 @@ body a {
     color:#fff;
 }
 
+a#go-back {
+    margin: 20px 20px 0;
+    display: block;
+    position: relative;
+    z-index: 3;
+}
+
+a#go-back img {
+    max-height: 25px;
+}
+
+a#go-back+#header {
+    padding-top: 5px;
+}
+
 /* CARD */
 
 .application {
@@ -408,7 +423,7 @@ body a {
 
 .application h3 {
     margin: 0;
-    font-family: 'Roboto',sans-serif;
+    font-family: 'PT Sans',sans-serif;
     font-size: 24px;
     line-height: 1;
 }
@@ -516,6 +531,10 @@ body a {
     border-right: 0;
     margin: 20px 0 0;
     padding: 20px 0;
+}
+
+.profile-page .funds a {
+    cursor: pointer;
 }
 
 .profile-page .funds {

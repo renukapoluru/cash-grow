@@ -22,4 +22,15 @@ export class CashGrowService {
         const url = `${cashGrowBaseUrl}/accounts/${id}`;
         return axios.get(url);
     }
+
+    getAccountBalance(id: string){
+        const url = `${cashGrowBaseUrl}/accounts/${id}/balance`;
+        return axios.get(url);
+    }
+
+    transfer(data) {
+        const url = `${cashGrowBaseUrl}/transfers`;
+        return axios.post(url,data);
+    }
+
 }

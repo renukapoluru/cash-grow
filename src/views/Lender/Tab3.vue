@@ -12,11 +12,11 @@
         </div>
         <div class="funds">
             <div class="column">
-              <h4>5,00,000</h4>
+              <h4>₹{{ balance }}</h4>
               <h5>Balance</h5>
             </div>
             <div class="column">
-              <a>+ Add Funds</a>
+              <a href="/lender/addfunds">+ Add Funds</a>
             </div>
         </div>
         <div class="cards">
@@ -43,10 +43,15 @@ import ExploreContainer from '@/components/ExploreContainer.vue';
 
 import { Storage } from '@capacitor/storage';
 
+import { formatCurrency } from '@/common/utils';
+
+import { CashGrowManager } from "@/services/services";
+
 export default  {
   name: 'Tab3',
   components: { IonContent, IonPage},
   data: () => ({
+    balance: 0,
     userInfo: {},
     cards: [
       {
@@ -68,6 +73,7 @@ export default  {
     ]
   }),
   async mounted() {
+    this.fetchAccountBalance();
     const item: any= await Storage.get({ key: 'user' });
     const user: { id: string} = JSON.parse(item.value);
     fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users/'+user.id).then(response => response.json())
@@ -77,6 +83,20 @@ export default  {
         console.error('Error:', error);
     });
   },
+  methods: {
+    async fetchAccountBalance() {
+      const item: any= await Storage.get({ key: 'user' });
+      const user: { accountID: string; limit: string} = JSON.parse(item.value);
+      try { 
+        const id = user.accountID;
+        const res = await CashGrowManager.getAccountBalance(id);
+        console.log('Account Balance Res is ', res.data);
+        this.balance = formatCurrency(res.data.balance);
+      } catch(e) {
+        console.log('Error fetching account details', e);
+      }
+    }
+  }
 }
 </script>
 <style>

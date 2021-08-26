@@ -45,7 +45,7 @@ export default  {
     const user: { accountId: string; limit: string} = JSON.parse(item.value);
     this.limit = await formatCurrency(user.limit);
     try { 
-      const id = 'b9d6b9db-3f9b-4afc-b59f-3964f8f59b54';
+      const id = user.accountId;
       const res = await CashGrowManager.getAccountDetails(id);
     } catch(e) {
       console.log('Error fetching account details', e);

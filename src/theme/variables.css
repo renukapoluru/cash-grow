@@ -75,11 +75,11 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
-  --ion-font-family: 'Roboto',sans-serif;
+  --ion-font-family: 'PT Sans',sans-serif;
 }
 
 body {
-  font-family: 'Roboto',sans-serif!important;
+  font-family: 'PT Sans',sans-serif!important;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -6,7 +6,7 @@
         <div class="home-funds">
           <div class="funds">
             <h4>Funds</h4>
-            <h3>₹ 20,00,000</h3>
+            <h3>₹ {{ this.balance }}</h3>
           </div>
           <div class="lent-earned">
             <div class="lent">
@@ -71,6 +71,11 @@ import VioletHeader from '@/components/VioletHeader.vue';
 // import Operations from '@/views/Home/Operations.vue';
 
 import { Storage } from '@capacitor/storage';
+
+import { formatCurrency } from '@/common/utils';
+
+import { CashGrowManager } from "@/services/services";
+
 export default defineComponent({
   name: 'Tab1',
   components: { 
@@ -82,6 +87,7 @@ export default defineComponent({
   },
   data(){
     return{
+      balance: 0,
       loans: [],
       orangeColor: 'orange',
       coloredRatingIcon: require('@/assets/rating.png'),
@@ -90,6 +96,7 @@ export default defineComponent({
   },
   mounted() {
     this.fetchLoans();
+    this.fetchAccountBalance();
   },
   methods:{
     fetchLoans() {
@@ -119,7 +126,19 @@ export default defineComponent({
       }
     },
     lend(borrowerId: string) {
-      console.log('Lender ID', borrowerId);
+      console.log('Borrower ID', borrowerId);
+    },
+    async fetchAccountBalance() {
+      const item: any= await Storage.get({ key: 'user' });
+      const user: { accountID: string; limit: string} = JSON.parse(item.value);
+      try { 
+        const id = user.accountID;
+        const res = await CashGrowManager.getAccountBalance(id);
+        console.log('Account Balance Res is ', res.data);
+        this.balance = formatCurrency(res.data.balance);
+      } catch(e) {
+        console.log('Error fetching account details', e);
+      }
     }
   }
 });

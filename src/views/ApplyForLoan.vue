@@ -101,7 +101,7 @@ rgba(0, 0, 0, 0.25);
 
 .apply-for-loan h3 {
     font-size: 22px;
-    font-family: 'Roboto',sans-serif;
+    font-family: 'PT Sans',sans-serif;
     margin: 0;
 }
 
