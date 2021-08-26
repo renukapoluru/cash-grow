@@ -139,13 +139,14 @@ body a {
     max-width: 20px;
 }
 .signup-bottom {
-    position: absolute;
-    bottom: 50px;
+    position: relative;
+    bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
     text-align: center;
     font-size: 16px;
+    padding-top: 10px;
 }
 
 .signup-bottom a {
@@ -157,6 +158,7 @@ body a {
     margin: 0;
     --border-radius: 25px;
     height: 40px;
+    margin: 0 auto;
 }
 
 .input-field input:focus {

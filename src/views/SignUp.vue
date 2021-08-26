@@ -1,7 +1,8 @@
 <template>
   <ion-page id="step-1" class="sign-up-in-page signup-step">
-    <ion-content :fullscreen="true">
+    <ion-content class="page-content" :fullscreen="true">
       <div class="signup-content">
+        <span v-if="accountHolderRes">{{ accountHolderRes }}</span>
         <div class="sign-up-in-heading">
           <h3>Create Account,</h3>
           <h4>Sign up to get started!</h4>
@@ -64,6 +65,9 @@
 
 <script lang="ts">
 import { IonPage, IonContent, toastController } from '@ionic/vue';
+
+import Header from '@/components/Header.vue';
+
 import { defineComponent } from 'vue';
 
 import { uniqueId } from '@/common/utils';
@@ -96,7 +100,8 @@ export default  defineComponent({
       callIcon: require('@/assets/call-icon.png'),
       passwordIcon: require('@/assets/password-icon.png'),
       genderIcon: require('@/assets/bigender.png'),
-      dobIcon: require('@/assets/calendar-icon.png')
+      dobIcon: require('@/assets/calendar-icon.png'),
+      accountHolderRes : null
     }
   },
   methods:{
@@ -156,7 +161,7 @@ export default  defineComponent({
               "source": "postman"
           };
           console.log('Account Holder Body', accountHolder);
-          CashGrowManager.createAccountHolder(accountHolder);
+          this.accountHolderRes = await CashGrowManager.createAccountHolder(accountHolder);
           // const rndInt = Math.floor(Math.random() * 12) + 1;
           // const limit = rndInt*500*1000;
           // const data = {
