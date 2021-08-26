@@ -45,12 +45,12 @@
                   <h4>Tenure</h4>
                 </div>
                 <div class="interest">
-                  <h3>{{ loan.interest }}</h3>
+                  <h3>{{ loan.interest }}%</h3>
                   <h4>ROI</h4>
                 </div>
               </div>
               <div class="disburse-loan">
-                <ion-button color="primary" :href="'/lender/loans/'+loan.id">LEND</ion-button>
+                <ion-button color="primary" @click="lend(loan.borrowerId)">LEND</ion-button>
               </div>
             </div>
           </div>
@@ -117,6 +117,9 @@ export default defineComponent({
       } else {
         return 13.6*rating+1+'px'
       }
+    },
+    lend(borrowerId: string) {
+      console.log('Lender ID', borrowerId);
     }
   }
 });

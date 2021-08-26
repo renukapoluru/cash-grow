@@ -66,7 +66,6 @@ export default  {
     loan: {}
   }),
   mounted() {
-    console.log('The id is: ' + this.$route.params.id);
     this.fetchLoanDetails();
   },
   methods: {

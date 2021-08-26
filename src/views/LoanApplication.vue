@@ -95,15 +95,8 @@ export default  defineComponent({
       }
     ]
   }),
-  mounted() {
-    console.log('route', this.$route.params.type);
-  },
   methods: {
-    amountChanged(value) {
-      console.log('changed value is', value);
-    },
     async applyLoan() {
-      console.log('Loan', this.amount, this.tenure,this.interest);
       const item: any= await Storage.get({ key: 'user' });
       const user: any = JSON.parse(item.value);
       const data = {
@@ -116,7 +109,8 @@ export default  defineComponent({
           lastName:user.lastName,
           rating: user.rating,
           userId: user.id,
-          status: 'CREATED'
+          status: 'CREATED',
+          borrowerId: user.accountID
         };
         fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/loanapplications', {
             method: 'POST', // or 'PUT'

@@ -60,12 +60,10 @@ export default defineComponent({
           });
         },
         async signIn(){
-          console.log('Users', this.users);
           let userFound = false;
           let passwordMatched = false;
           let role = '';
           await this.users.forEach((entry: any) => {
-              console.log(entry);
               if(entry.email == this.email) {
                 userFound = true;
                 role = entry.role;

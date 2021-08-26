@@ -160,7 +160,6 @@ export default  defineComponent({
               "source": "postman"
           };
           this.accountHolderRes = await CashGrowManager.createAccountHolder({ accountHolder: accountHolder});
-          console.log('Account Holder Res', this.accountHolderRes.data);
           const { accountHolderID, accountID } = this.accountHolderRes.data;
           const rndInt = Math.floor(Math.random() * 12) + 1;
           const limit = rndInt*500*1000;
@@ -185,7 +184,6 @@ export default  defineComponent({
           })
           .then(response => response.json())
           .then(data => {
-            console.log('Success:', data);
             this.callToast('Account created. Please sign in.');
             this.$router.push('/signin');
           })
