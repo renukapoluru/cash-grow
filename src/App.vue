@@ -376,6 +376,23 @@ body a {
     background-image: linear-gradient(#FF035E, #F916C7);
     border-radius: 10px;
     padding:40px 25px;
+    margin-bottom: 20px;
+}
+
+.application.educational{
+    background-image: linear-gradient(#005CE7,#24E2FC);
+}
+
+.application.home{
+    background-image: linear-gradient(#FF6B00,#FF1694);
+}
+
+.application.business{
+    background-image: linear-gradient(#B3CF05,#24E2FC);
+}
+
+.application.other{
+    background-image: linear-gradient(#4A00E0,#FF1694);
 }
 
 .application h5 {
@@ -384,6 +401,7 @@ body a {
     font-weight: 799;
     color: #EDEDED;
     margin-bottom: 5px;
+    text-transform: uppercase;
 }
 
 .application h3 {

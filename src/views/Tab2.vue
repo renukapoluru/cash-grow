@@ -5,7 +5,7 @@
       <div class="default-tab-padding">
         <h3>Loan Applications</h3>
         <div class="applications">
-          <div class="application all-text-white" v-for="(application,index) in applications" :key="index">
+          <div  v-for="(application,index) in applications" :key="index" :class="['application all-text-white',application.type]">
             <div class="left-col">
               <h5>{{ application.type }}</h5>
               <h3>₹ {{ currencyFormatter(application.amount)}}</h3> 
@@ -63,7 +63,7 @@ export default  {
       if(loanTypeImages[type]) {
         return loanTypeImages[type]
       } else {
-        return loanTypeImages['DEFAULT']
+        return loanTypeImages['default']
       }
     }
   }
