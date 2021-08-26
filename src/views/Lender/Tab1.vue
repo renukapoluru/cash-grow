@@ -25,13 +25,13 @@
             <div class="loan-card" v-for="loan in loans" :key="loan.id">
               <div class="card-top">
                 <div class="profile-pic">
-                  <img :src="loan.profilePic" />
+                  <img :src="loan.profilePicURL" />
                 </div>
                 <div class="profile-details image-rating">
                   <h4 :style="{'color':getRatingColor(loan.rating),'width': getColorWidth(loan.rating)}">
                    <img :src="getRatingColor(loan.rating)" />
                   </h4>
-                  <h3 class="name">{{ loan.name }}</h3>
+                  <h3 class="name">{{ loan.firstName }} {{ loan.lastName }}</h3>
                   <h4 class="purpose">PURPOSE: {{ loan.type }}</h4>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <Header firstText="Overview" :secondText="this.applications.length+ 'active applications &amp; '+this.loans.length + ' loans'"/>
+    <Header firstText="Overview" :secondText="this.applications.length+ ' active applications &amp; '+this.loans.length + ' loans'"/>
     <ion-content :fullscreen="true">
       <div class="default-tab-padding">
         <h3>Loan Applications</h3>

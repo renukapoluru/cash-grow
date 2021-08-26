@@ -111,8 +111,9 @@ export default  defineComponent({
           amount: this.amount,
           tenure: this.tenure,
           interest: this.interest,
-          profilePic: user.profilePic,
-          name: user.name,
+          profilePicURL: user.profilePicURL,
+          firstName: user.firstName,
+          lastName:user.lastName,
           rating: user.rating,
           userId: user.id,
           status: 'CREATED'
