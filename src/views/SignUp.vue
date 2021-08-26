@@ -165,13 +165,16 @@ export default  defineComponent({
           const rndInt = Math.floor(Math.random() * 12) + 1;
           const limit = rndInt*500*1000;
           const data = {
-            firstname: this.firstname,
-            lastname: this.lastname,
+            firstName: this.firstname,
+            lastName: this.lastname,
             role: this.role,
             email: this.email,
             userId: this.createUserId(),
             password: this.password,
-            limit: limit
+            limit: limit,
+            profilePicURL: "https://i.im.ge/2021/08/26/QQqB39.jpg",
+            accountHolderID: "67353a4f-a299-4756-893f-25162ef3d960",
+            accountID: "b9d6b9db-3f9b-4afc-b59f-3964f8f59b54"
           };
           fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users', {
             method: 'POST', // or 'PUT'

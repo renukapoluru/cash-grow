@@ -377,7 +377,7 @@ body a {
 .application {
     background-image: linear-gradient(#FF035E, #F916C7);
     border-radius: 10px;
-    padding:40px 25px;
+    padding:20px 25px;
     margin-bottom: 20px;
 }
 

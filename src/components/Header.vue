@@ -27,8 +27,8 @@ export default {
   async mounted() {
     const item: any= await Storage.get({ key: 'user' });
     console.log('User',JSON.parse(item.value));
-    const user: { name: string} = JSON.parse(item.value);
-    this.userName = user.name;
+    const user: { firstName: string; lastName: string} = JSON.parse(item.value);
+    this.userName = user.firstName + user.lastName;
     console.log('Name', this.userName);
   }
 }
