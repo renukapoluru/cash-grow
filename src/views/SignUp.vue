@@ -2,7 +2,6 @@
   <ion-page id="step-1" class="sign-up-in-page signup-step">
     <ion-content class="page-content" :fullscreen="true">
       <div class="signup-content">
-        <span v-if="accountHolderRes">{{ accountHolderRes }}</span>
         <div class="sign-up-in-heading">
           <h3>Create Account,</h3>
           <h4>Sign up to get started!</h4>
@@ -110,58 +109,59 @@ export default  defineComponent({
           const year = dt.getFullYear();
           const month =  parseInt((dt.getMonth() < 10 ? '0' : '') + (dt.getMonth()+1));
           const day = parseInt((dt.getDate() < 10 ? '0' : '') + dt.getDate());
-          // const accountHolder = {
-          //     "ifiID": "140793",
-          //     "formID": uniqueId(),
-          //     "spoolID": "123",
-          //     "individualType": "REAL",
-          //     "salutation": "Ms.",
-          //     "firstName": this.firstname,
-          //     "middleName": "",
-          //     "lastName": this.lastname,
-          //     "profilePicURL": "https://i.im.ge/2021/08/26/QQqB39.jpg",
-          //     "dob": {
-          //         "year": year,
-          //         "month": month,
-          //         "day": day
-          //     },
-          //     "gender": this.gender,
-          //     "mothersMaidenName": "",
-          //     "kycDetails": {
-          //         "kycStatus": "MINIMAL",
-          //         "kycStatusPostExpiry": "string",
-          //         "kycAttributes": {},
-          //         "authData": {
-          //             "PAN": ""
-          //         },
-          //         "authType": "PAN"
-          //     },
-          //     "vectors": [
-          //         {
-          //             "type": "p",
-          //             "value": `+91${this.phone}`,
-          //             "isVerified": false
-          //         }
-          //     ],
-          //     "pops": [],
-          //     "customFields": {
-          //         "companyID": [
-          //             1,
-          //             2,
-          //             3
-          //         ]
-          //     },
-          //     "tags": [
-          //         {
-          //             "type": "vbo",
-          //             "value": "swiggy",
-          //             "isVerified": false
-          //         }
-          //     ],
-          //     "source": "postman"
-          // };
-          // console.log('Account Holder Body', accountHolder);
-          // this.accountHolderRes = await CashGrowManager.createAccountHolder(accountHolder);
+          const accountHolder = {
+              "ifiID": "140793",
+              "formID": uniqueId(),
+              "spoolID": "123",
+              "individualType": "REAL",
+              "salutation": "Ms.",
+              "firstName": this.firstname,
+              "middleName": "",
+              "lastName": this.lastname,
+              "profilePicURL": "https://i.im.ge/2021/08/26/QQqB39.jpg",
+              "dob": {
+                  "year": year,
+                  "month": month,
+                  "day": day
+              },
+              "gender": this.gender,
+              "mothersMaidenName": "",
+              "kycDetails": {
+                  "kycStatus": "MINIMAL",
+                  "kycStatusPostExpiry": "string",
+                  "kycAttributes": {},
+                  "authData": {
+                      "PAN": uniqueId()
+                  },
+                  "authType": "PAN"
+              },
+              "vectors": [
+                  {
+                      "type": "p",
+                      "value": `+91${this.phone}`,
+                      "isVerified": false
+                  }
+              ],
+              "pops": [],
+              "customFields": {
+                  "companyID": [
+                      1,
+                      2,
+                      3
+                  ]
+              },
+              "tags": [
+                  {
+                      "type": "vbo",
+                      "value": "swiggy",
+                      "isVerified": false
+                  }
+              ],
+              "source": "postman"
+          };
+          this.accountHolderRes = await CashGrowManager.createAccountHolder({ accountHolder: accountHolder});
+          console.log('Account Holder Res', this.accountHolderRes.data);
+          const { accountHolderID, accountID } = this.accountHolderRes.data;
           const rndInt = Math.floor(Math.random() * 12) + 1;
           const limit = rndInt*500*1000;
           const data = {
@@ -173,8 +173,8 @@ export default  defineComponent({
             password: this.password,
             limit: limit,
             profilePicURL: "https://i.im.ge/2021/08/26/QQqB39.jpg",
-            accountHolderID: "67353a4f-a299-4756-893f-25162ef3d960",
-            accountID: "b9d6b9db-3f9b-4afc-b59f-3964f8f59b54"
+            accountHolderID: accountHolderID,
+            accountID: accountID
           };
           fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users', {
             method: 'POST', // or 'PUT'
