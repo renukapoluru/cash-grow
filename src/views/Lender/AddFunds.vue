@@ -48,7 +48,6 @@ export default  defineComponent({
       const item: any= await Storage.get({ key: 'user' });
       const user: { accountID: string; limit: string} = JSON.parse(item.value);
       try { 
-        const id = user.accountID;
         const transferData = {
           lenderId: 'b9d6b9db-3f9b-4afc-b59f-3964f8f59b54',
           borrowerId: user.accountID,
@@ -65,6 +64,7 @@ export default  defineComponent({
             })
           return toast.present();
         }
+        this.sendToProfile();
       } catch(e) {
         console.log('Error fetching account details', e);
         const toast = await toastController
@@ -75,7 +75,10 @@ export default  defineComponent({
             })
           return toast.present();
       }
-    }
+    },
+    sendToProfile(){
+      this.$router.push('/lender-tabs/tab3');
+    },
   }
 })
 </script>
