@@ -10,9 +10,9 @@
             <div class="left-col">
               <h5>{{ application.type }}</h5>
               <h3>₹ {{ currencyFormatter(application.amount)}}</h3> 
-              <h5 class="paid-total">10% paid so far</h5>
+              <h5 class="paid-total">{{ getLoanPercentage(application) }}% paid so far</h5>
               <div class="progressbar">
-                <span class="filled" style="width:10%;"></span>
+                <span class="filled" :style="{ width:getLoanPercentage(application)+'%' }"></span>
                 <span class="full"></span>
               </div>
               <span class="progressbar"></span>
@@ -70,6 +70,10 @@ export default  {
       } else {
         return loanTypeImages['default']
       }
+    },
+    getLoanPercentage(loan) {
+      //@ts-ignore
+      return parseInt(loan.paidInstallments/parseInt(loan.tenure)*100);
     }
   }
 }

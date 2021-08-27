@@ -72,5 +72,10 @@ export class CashGrowService {
         return axios.put(url,{borrowerId});
     }
 
+    async payInstallment(id: string) {
+        console.log(id);
+        const url = `${cashGrowBaseUrl}/loanapplications/pay`;
+        return axios.put(url,{id});
+    }
 
 }

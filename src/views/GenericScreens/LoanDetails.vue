@@ -8,12 +8,11 @@
             <div class="left-col">
               <h5>{{ loan.type }}</h5>
               <h3>₹ {{ currencyFormatter(loan.amount)}}</h3> 
-              <h5 class="paid-total">10% paid so far</h5>
+              <h5 class="paid-total">{{ getLoanPercentage(loan) }}% paid so far</h5>
               <div class="progressbar">
-                <span class="filled" style="width:10%;"></span>
+                <span class="filled" :style="{ width:getLoanPercentage(loan)+'%' }"></span>
                 <span class="full"></span>
               </div>
-              <span class="progressbar"></span>
             </div>
             <div class="right-col">
                 <img :src="getLoanTypeImage(loan.type)" />
@@ -67,7 +66,7 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonContent } from '@ionic/vue';
+import { IonPage, IonContent,loadingController } from '@ionic/vue';
 import Header from '@/components/Header.vue';
 import GoBack from '@/components/GoBack.vue';
 
@@ -121,24 +120,40 @@ export default  {
       }
     },
     async payInstallment() {
+      const loading = await loadingController.create({
+          message: 'Paying the installment..'
+      });
+      loading.present();
       const item: any= await Storage.get({ key: 'user' });
       const user: { accountID: string; limit: string} = JSON.parse(item.value);
-      console.log('loan details', this.loan);
       try { 
         const transferData = {
           debitId: user.accountID,
           creditId: this.loan.borrowerId,
           requestId: uniqueId(),
-          amount: 10
+          amount: this.loan.emi
         }
         const res = await CashGrowManager.transfer(transferData);
         if(res.status == 200) {
+          loading.dismiss();
           callToast("success", "Installment paid successfully");
+          try {
+            await CashGrowManager.payInstallment(this.loan._id);
+            this.fetchLoanDetails();
+          } catch(e) {
+            console.log(e);
+          }
         }
+        loading.dismiss();
       } catch(e) {
         console.log('Error fetching account details', e);
+        loading.dismiss();
         callToast("danger", "Error while paying installment");
       }
+    },
+    getLoanPercentage(loan) {
+      //@ts-ignore
+      return parseInt(loan.paidInstallments/parseInt(loan.tenure)*100);
     }
   }
 }
