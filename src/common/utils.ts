@@ -1,9 +1,10 @@
 import { toastController } from '@ionic/vue';
 
 
-export const callToast = async(message: string) => {
+export const callToast = async(type: string, message: string) => {
     const toast = await toastController
     .create({
+        color: type,
         message: message,
         duration: 2000
     })

@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 
+import { Storage } from '@capacitor/storage';
 //const cashGrowBaseUrl = 'https://enigmatic-mesa-66554.herokuapp.com';
 const cashGrowBaseUrl = 'http://localhost:4000';
 export class CashGrowService {
@@ -29,6 +30,16 @@ export class CashGrowService {
     loginUser(data) {
         const url = `${cashGrowBaseUrl}/login`;
         return axios.post(url,data);
+    }
+
+    async createLoanApplication(data) {
+        const url = `${cashGrowBaseUrl}/loanapplications`;
+        const storageUser: any= await Storage.get({ key: 'user' });
+        const user: { firstName: string; lastName: string} = JSON.parse(storageUser.value);
+        const applicantId = user['_id'];
+        data.user = user;
+        data.applicantId = applicantId;
+        return axios.post(url, data,)
     }
 
 

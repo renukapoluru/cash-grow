@@ -47,6 +47,8 @@ import { callToast } from '@/common/utils';
 import { defineComponent } from 'vue';
 import { Storage } from '@capacitor/storage';
 
+import { CashGrowManager } from "@/services/services";
+
 export default  defineComponent({
   name: 'LoanApplication',
   components: { 
@@ -99,53 +101,22 @@ export default  defineComponent({
     async applyLoan() {
       const item: any= await Storage.get({ key: 'user' });
       const user: any = JSON.parse(item.value);
-      const data = {
+      const applicationBody = {
           type: this.$route.params.type,
           amount: this.amount,
           tenure: this.tenure,
           interest: this.interest,
-          profilePicURL: user.profilePicURL,
-          firstName: user.firstName,
-          lastName:user.lastName,
-          rating: user.rating,
-          userId: user.id,
           status: 'CREATED',
-          borrowerId: user.accountID
-        };
-        fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/loanapplications', {
-            method: 'POST', // or 'PUT'
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        }).then(response => response.json())
-        .then(res => {
-            callToast('Loan request created');
-            const application = res;
-            fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users/'+user.id).then(response => response.json())
-            .then(userDetails => {
-              const applications = userDetails.applications;
-              applications.push(application);
-              fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users/'+user.id, {
-                method: 'PUT', // or 'PUT'
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ applications: applications}),
-              }).then(response => response.json())
-              .then(() => {
-                this.$router.push('/tabs/tab2');
-              }).catch((error) => {
-                console.error('Error:', error);
-              });
-            }).catch((error) => {
-              console.error('Error:', error);
-            });
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          callToast('Error while creating loan request');
-        });
+      };
+
+      try {
+          const applicationRes = await CashGrowManager.createLoanApplication(applicationBody);
+          callToast('success','Loan request created');
+          this.$router.push('/tabs/tab2');
+      } catch(err) {
+          console.error('Error:', err);
+          callToast('danger','Error while creating loan request');
+      }
     }
   }
 })
