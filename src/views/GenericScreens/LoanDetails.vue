@@ -57,7 +57,7 @@
             </div>
           </div>
         </div>
-        <div class="pay-emi">
+        <div class="pay-emi" v-if="borrower">
           <ion-button color="primary" @click="payInstallment()">PAY INSTALLMENT</ion-button>
         </div>
       </div>
@@ -93,9 +93,15 @@ export default  {
     Upcoming
   },
   data: () => ({
-    loan: {}
+    loan: {},
+    borrower: false
   }),
-  mounted() {
+  async mounted() {
+    const item: any= await Storage.get({ key: 'user' });
+    const user: { role: string} = JSON.parse(item.value);
+    if(user.role == 'BORROW') {
+      this.borrower = true;
+    }
     this.fetchLoanDetails();
   },
   methods: {
