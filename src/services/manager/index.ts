@@ -2,8 +2,8 @@
 import axios from 'axios';
 
 import { Storage } from '@capacitor/storage';
-//const cashGrowBaseUrl = 'https://enigmatic-mesa-66554.herokuapp.com';
-const cashGrowBaseUrl = 'http://localhost:4000';
+const cashGrowBaseUrl = 'https://enigmatic-mesa-66554.herokuapp.com';
+//const cashGrowBaseUrl = 'http://localhost:4000';
 export class CashGrowService {
 
     createAccountHolder(data: any) {
