@@ -173,7 +173,7 @@ export default  defineComponent({
             accountHolderID: accountHolderID,
             accountID: accountID
           };
-          fetch('http://localhost:4000/users', {
+          fetch('https://enigmatic-mesa-66554.herokuapp.com/users', {
             method: 'POST', // or 'PUT'
             headers: {
               'Content-Type': 'application/json',
