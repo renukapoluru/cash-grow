@@ -2,6 +2,9 @@
   <ion-page>
     <VioletHeader />
     <ion-content :fullscreen="true">
+      <ion-refresher  pull-factor="0.5" pull-min="50" slot="fixed" @ionRefresh="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
       <div class="homepage-content borrower-hp">
         <div class="home-funds">
           <div class="funds">
@@ -100,7 +103,16 @@ export default defineComponent({
     this.fetchLoanApplications();
     this.fetchAccountBalance();
   },
-  methods:{
+  methods:{    
+    
+    doRefresh(event) {  
+      this.fetchAccountBalance();
+      this.fetchLoanApplications();
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    },  
     async fetchLoanApplications() {
       try {
         const { data } = await CashGrowManager.getAllLoanApplications();

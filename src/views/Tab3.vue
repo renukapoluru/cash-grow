@@ -1,6 +1,9 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
+      <ion-refresher  pull-factor="0.5" pull-min="50" slot="fixed" @ionRefresh="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
       <div class="profile-page">
         <div class="user-card">
             <div class="user-image" :style="'background-image:url('+userInfo.profilePicURL+');'">
@@ -74,6 +77,14 @@ export default  {
     this.fetchAccountBalance();
   },
   methods: {
+
+    doRefresh(event) {  
+      this.fetchAccountBalance();
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    },  
     async fetchUserInfo(){
       const item: any= await Storage.get({ key: 'user' });
       const user: { id: string} = JSON.parse(item.value);

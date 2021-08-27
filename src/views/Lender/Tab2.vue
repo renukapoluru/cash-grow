@@ -2,6 +2,9 @@
   <ion-page>
     <Header firstText="Overview" :secondText="this.currentLoans.length+ ' current loans '"/>
     <ion-content :fullscreen="true">
+      <ion-refresher  pull-factor="0.5" pull-min="50" slot="fixed" @ionRefresh="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
       <div class="default-tab-padding">
 
         <h3>Current Loans</h3>
@@ -47,15 +50,26 @@ export default  {
     currentLoans: []
   }),
   async mounted() {
-    try {
-      //@ts-ignore
-      const { data } = await CashGrowManager.getLenderLoans();
-      this.currentLoans = data;
-    } catch(err) {
-      callToast('danger', 'Error while fetching current loans');
-    }
+    this.getLenderLoans();
   },
-  methods: {
+  methods: {   
+    
+    doRefresh(event) {  
+      this.getLenderLoans();
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    },  
+    async getLenderLoans(){
+        try {
+          //@ts-ignore
+          const { data } = await CashGrowManager.getLenderLoans();
+          this.currentLoans = data;
+        } catch(err) {
+          callToast('danger', 'Error while fetching current loans');
+        }
+    },
     getSecondaryText() {
       return `${this.applications.length} Applications &amp; ${this.loans.length} Loans`
     },
