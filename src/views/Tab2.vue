@@ -25,11 +25,13 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue
 import ExploreContainer from '@/components/ExploreContainer.vue';
 import Header from '@/components/Header.vue';
 
-import { Storage } from '@capacitor/storage';
-
 import { formatCurrency } from '@/common/utils';
 
+import { callToast } from '@/common/utils';
+
 import { loanTypeImages } from '@/common/utils';
+
+import { CashGrowManager } from "@/services/services";
 
 export default  {
   name: 'Tab2',
@@ -39,15 +41,12 @@ export default  {
     loans: []
   }),
   async mounted() {
-    const item: any= await Storage.get({ key: 'user' });
-    const user: { id: string} = JSON.parse(item.value);
-    fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users/'+user.id).then(response => response.json())
-    .then(userDetails => {
-        this.applications = [...userDetails.applications];
-        this.loans = [...userDetails.loans];
-    }).catch((error) => {
-        console.error('Error:', error);
-    });
+    try {
+      const { data } = await CashGrowManager.getUserLoanApplications();
+      this.applications = data;
+    } catch(err) {
+      callToast('danger', 'Error while fetching loan applications');
+    }
   },
   methods: {
     getSecondaryText() {

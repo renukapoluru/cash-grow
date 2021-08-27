@@ -42,5 +42,12 @@ export class CashGrowService {
         return axios.post(url, data,)
     }
 
+    async getUserLoanApplications() {
+        const storageUser: any= await Storage.get({ key: 'user' });
+        const user: { _id: string } = JSON.parse(storageUser.value);
+        const url = `${cashGrowBaseUrl}/${user._id}/loanapplications`;
+        return axios.get(url);
+    }
+
 
 }

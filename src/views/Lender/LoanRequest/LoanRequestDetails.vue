@@ -52,7 +52,6 @@
 import { IonPage, IonContent } from '@ionic/vue';
 import Header from '@/components/Header.vue';
 import GoBack from '@/components/GoBack.vue';
-import { toastController } from '@ionic/vue';
 
 export default  {
   name: 'LoanRequestDetails',
@@ -98,31 +97,6 @@ export default  {
     },
     sendToHome(){
       this.$router.push('/lender-tabs/tab1');
-    },
-    async lendLoan() {
-      const toast = await toastController
-          .create({
-            header: 'Toast header',
-            message: 'Click to Close',
-            position: 'top',
-            buttons: [
-              {
-                side: 'start',
-                icon: 'star',
-                text: 'Favorite',
-                handler: () => {
-                  console.log('Favorite clicked');
-                }
-              }, {
-                text: 'Done',
-                role: 'cancel',
-                handler: () => {
-                  console.log('Cancel clicked');
-                }
-              }
-            ]
-          })
-        await toast.present();
     }
   }
 }
