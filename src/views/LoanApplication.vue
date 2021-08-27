@@ -94,8 +94,18 @@ export default  defineComponent({
           tenure: this.tenure,
           interest: this.interest,
           status: 'CREATED',
+          emi: 0,
+          paidInstallments: 0
       };
-
+      const loanAmount = this.amount;
+      const numberOfMonths = this.tenure;
+      const rateOfInterest = this.interest;
+      const monthlyInterestRatio = (rateOfInterest/100)/12;				
+      const top = Math.pow((1+monthlyInterestRatio),numberOfMonths);
+      const bottom = top -1;
+      const sp = top / bottom;
+      const emi = ((loanAmount * monthlyInterestRatio) * sp);
+      applicationBody.emi = emi;
       try {
           await CashGrowManager.createLoanApplication(applicationBody);
           callToast('success','Loan request created');

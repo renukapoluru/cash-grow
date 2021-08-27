@@ -33,11 +33,11 @@
             </div>
             <div class="table-format">
               <span>Installment</span>
-              <span>3,000</span>
+              <span>₹{{ parseInt(loan.emi) }}</span>
             </div>
             <div class="table-format">
               <span>Paid Installment</span>
-              <span>1</span>
+              <span>{{ loan.paidInstallments }}</span>
             </div>
             <div class="table-format">
               <span>Total Installments</span>
