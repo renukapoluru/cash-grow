@@ -4,44 +4,49 @@
     <Header class="hide-top-padding" firstText="Application Details" secondText="A brief overview of the loan application"/>
     <ion-content :fullscreen="true">
       <div class="page-padding">
-        <div class="loan-card about-borrower">
-          <div class="card-top">
-            <div class="profile-pic">
-              <img :src="loan.profilePic" />
+        <div v-if="currentStep == 1">
+          <div v-if="loan.user" class="loan-card about-borrower">
+            <div class="card-top">
+              <div class="profile-pic">
+                <img v-if="loan.user" :src="loan.user.profilePicURL" />
+              </div>
+              <div class="profile-details image-rating">
+                <h4 v-if="loan.user" :style="{'color':getRatingColor(loan.user.rating),'width': getColorWidth(loan.user.rating)}">
+                  <img :src="getRatingColor(loan.user.rating)" />
+                </h4>
+                <h3 class="name">{{ loan.user.firstName }} {{loan.user.lastName }}</h3>
+                <h4 class="purpose">PURPOSE: {{ loan.type }}</h4>
+              </div>
             </div>
-            <div class="profile-details image-rating">
-              <h4 :style="{'color':getRatingColor(loan.rating),'width': getColorWidth(loan.rating)}">
-                <img :src="getRatingColor(loan.rating)" />
-              </h4>
-              <h3 class="name">{{ loan.name }}</h3>
-              <h4 class="purpose">PURPOSE: {{ loan.type }}</h4>
+          </div>
+          <div class="table-details">
+            <div class="row">
+              <h4>Amount</h4>
+              <h4>₹{{ loan.amount }}</h4>
             </div>
+            <div class="row">
+              <h4>Interest</h4>
+              <h4>{{ loan.interest }}</h4>
+            </div>
+            <div class="row">
+              <h4>Tenure</h4>
+              <h4>{{ loan.tenure }}</h4>
+            </div>
+          </div>
+          <div class="profile-depth">
+            <h3>Profile Depth</h3>
+            <ul>
+              <li>Has currently 0 active loans</li>
+              <li>99% on-time payments</li>
+              <li>1% missed payments</li>
+            </ul>
           </div>
         </div>
-        <div class="table-details">
-          <div class="row">
-            <h4>Amount</h4>
-            <h4>₹{{ loan.amount }}</h4>
-          </div>
-          <div class="row">
-            <h4>Interest</h4>
-            <h4>{{ loan.interest }}</h4>
-          </div>
-          <div class="row">
-            <h4>Tenure</h4>
-            <h4>{{ loan.tenure }}</h4>
-          </div>
-        </div>
-        <div class="profile-depth">
-          <h3>Profile Depth</h3>
-          <ul>
-            <li>Has currently 0 active loans</li>
-            <li>99% on-time payments</li>
-            <li>1% missed payments</li>
-          </ul>
+        <div v-if="currentStep == 2">
+          E-agreement
         </div>
         <div class="disburse-loan">
-          <ion-button color="primary" @click="lendLoan()">LEND</ion-button>
+          <ion-button color="primary" @click="nextStep()">{{ stepsButtonText[currentStep-1] }}</ion-button>
         </div>
       </div>
     </ion-content>
@@ -66,17 +71,20 @@ export default  {
     GoBack
   },
   data: () => ({
-    loan: {}
+    loan: {},
+    currentStep: 1,
+    stepsButtonText: ['Proceed to Agreement','Approve']
   }),
   mounted() {
     this.fetchLoanDetails();
   },
   methods: {
     async fetchLoanDetails() {
+      console.log('fetch loan details called');
       const id = this.$route.params.id;
       try {
         const { data } = await CashGrowManager.getLoanApplication(id);
-        this.loan = data;
+        this.loan = {...data[0]};
       } catch(e) {
         callToast('danger', 'Error while fetching loan application');
       }
@@ -99,6 +107,9 @@ export default  {
     },
     sendToHome(){
       this.$router.push('/lender-tabs/tab1');
+    },
+    nextStep() {
+      this.currentStep = this.currentStep+1;
     }
   }
 }
