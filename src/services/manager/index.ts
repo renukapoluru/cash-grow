@@ -49,5 +49,10 @@ export class CashGrowService {
         return axios.get(url);
     }
 
+    async getAllLoanApplications() {
+        const url = `${cashGrowBaseUrl}/loanapplications`;
+        return axios.get(url);
+    }
+
 
 }

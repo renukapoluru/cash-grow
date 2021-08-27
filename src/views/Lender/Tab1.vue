@@ -22,16 +22,16 @@
         <div class="loan-requests">
           <h3 class="section-heading">Loan Requests</h3>
           <div class="loans-list">
-            <div class="loan-card" v-for="loan in loans" :key="loan.id">
+            <div class="loan-card" v-for="loan in loanApplications" :key="loan.id">
               <div class="card-top">
                 <div class="profile-pic">
-                  <img :src="loan.profilePicURL" />
+                  <img :src="loan.user.profilePicURL" />
                 </div>
                 <div class="profile-details image-rating">
-                  <h4 :style="{'color':getRatingColor(loan.rating),'width': getColorWidth(loan.rating)}">
-                   <img :src="getRatingColor(loan.rating)" />
+                  <h4 :style="{'color':getRatingColor(loan.user.rating),'width': getColorWidth(loan.user.rating)}">
+                   <img :src="getRatingColor(loan.user.rating)" />
                   </h4>
-                  <h3 class="name">{{ loan.firstName }} {{ loan.lastName }}</h3>
+                  <h3 class="name">{{ loan.user.firstName }} {{ loan.user.lastName }}</h3>
                   <h4 class="purpose">PURPOSE: {{ loan.type }}</h4>
                 </div>
               </div>
@@ -50,7 +50,7 @@
                 </div>
               </div>
               <div class="disburse-loan">
-                <ion-button color="primary" @click="lend(loan.borrowerId)">LEND</ion-button>
+                <ion-button color="primary" @click="lend(loan.user.accountID)">LEND</ion-button>
               </div>
             </div>
           </div>
@@ -74,6 +74,8 @@ import { Storage } from '@capacitor/storage';
 
 import { formatCurrency } from '@/common/utils';
 
+import { callToast } from '@/common/utils';
+
 import { CashGrowManager } from "@/services/services";
 
 export default defineComponent({
@@ -88,26 +90,24 @@ export default defineComponent({
   data(){
     return{
       balance: 0,
-      loans: [],
+      loanApplications: [],
       orangeColor: 'orange',
       coloredRatingIcon: require('@/assets/rating.png'),
       placeholderRatingIcon: require('@/assets/placeholder-rating.png'),
     }
   },
   mounted() {
-    this.fetchLoans();
+    this.fetchLoanApplications();
     this.fetchAccountBalance();
   },
   methods:{
-    fetchLoans() {
-      fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/loanapplications')
-      .then(response => response.json())
-      .then(data => {
-        this.loans = data;
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    async fetchLoanApplications() {
+      try {
+        const { data } = await CashGrowManager.getAllLoanApplications();
+        this.loanApplications = data;
+      } catch(err) {
+        callToast('danger', 'Error while fetching loan applications');
+      }
     },
     getRatingColor(rating: number) {
       if(rating > 4) {

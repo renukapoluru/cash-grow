@@ -75,12 +75,7 @@ export default  {
     this.fetchAccountBalance();
     const item: any= await Storage.get({ key: 'user' });
     const user: { id: string} = JSON.parse(item.value);
-    fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users/'+user.id).then(response => response.json())
-    .then(userDetails => {
-        this.userInfo = userDetails;
-    }).catch((error) => {
-        console.error('Error:', error);
-    });
+    this.userInfo = user;
   },
   methods: {
     async fetchAccountBalance() {
