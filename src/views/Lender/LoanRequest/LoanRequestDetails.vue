@@ -184,11 +184,11 @@ export default  {
         const storageUser: any= await Storage.get({ key: 'user' });
         const user: { accountID: string } = JSON.parse(storageUser.value);
         try {
-          await CashGrowManager.changeLoanApplicationStatus(this.loan._id,"APPROVED");
+          await CashGrowManager.changeLoanApplicationStatus(this.loan._id,"APPROVED",user.accountID);
           try {
             const transferData = {
-              lenderId: user.accountID,
-              borrowerId: this.loan.user.accountID,
+              debitId: user.accountID,
+              creditId: this.loan.user.accountID,
               requestId: uniqueId(),
               amount: parseInt(this.loan.amount)
             };

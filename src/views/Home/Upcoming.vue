@@ -13,30 +13,6 @@
                 ₹3000
             </div>
         </div>
-        <div class="square-bg">
-            <div class="date">
-                <span class="month">MAR</span>
-                <span class="day">12</span>
-            </div>
-            <div class="desc">
-                Next charge in 10 days
-            </div>
-            <div class="price">
-                ₹3000
-            </div>
-        </div>
-        <div class="square-bg">
-            <div class="date">
-                <span class="month">MAR</span>
-                <span class="day">12</span>
-            </div>
-            <div class="desc">
-                Next charge in 10 days
-            </div>
-            <div class="price">
-                ₹3000
-            </div>
-        </div>
     </div>
 </template>
 

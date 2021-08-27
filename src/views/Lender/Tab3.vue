@@ -72,19 +72,22 @@ export default  {
     ]
   }),
   async mounted() {
-    this.fetchAccountBalance();
-    const item: any= await Storage.get({ key: 'user' });
-    const user: { id: string} = JSON.parse(item.value);
-    this.userInfo = user;
+    this.fetchUserInfo();
+    await this.fetchAccountBalance();
   },
   methods: {
+    async fetchUserInfo(){
+      const item: any= await Storage.get({ key: 'user' });
+      const user: { id: string} = JSON.parse(item.value);
+      this.userInfo = user;
+    },
     async fetchAccountBalance() {
       const item: any= await Storage.get({ key: 'user' });
-      const user: { accountID: string; limit: string} = JSON.parse(item.value);
+      const user: { accountID: string} = JSON.parse(item.value);
       try { 
         const id = user.accountID;
         const res = await CashGrowManager.getAccountBalance(id);
-        this.balance = formatCurrency(res.data.balance);
+        this.balance = res.data.balance;
       } catch(e) {
         console.log('Error fetching account details', e);
       }

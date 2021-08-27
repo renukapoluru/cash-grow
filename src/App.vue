@@ -394,6 +394,15 @@ a#go-back+#header {
     border-radius: 10px;
     padding:20px 15px;
     margin-bottom: 20px;
+    position: relative;
+}
+
+.application a.link-card {
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
 }
 
 .application img {

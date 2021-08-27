@@ -12,7 +12,7 @@
         </div>
         <div class="funds">
             <div class="column">
-              <h4>5,00,000</h4>
+              <h4>₹{{ balance }}</h4>
               <h5>Balance</h5>
             </div>
             <div class="column">
@@ -42,10 +42,13 @@ import { IonPage, IonContent } from '@ionic/vue';
 
 import { Storage } from '@capacitor/storage';
 
+import { CashGrowManager } from "@/services/services";
+
 export default  {
   name: 'Tab3',
   components: { IonContent, IonPage},
   data: () => ({
+    balance: 0,
     userInfo: {},
     cards: [
       {
@@ -66,11 +69,28 @@ export default  {
       }
     ]
   }),
-  async mounted() {
-    const item: any= await Storage.get({ key: 'user' });
-    const user: any = JSON.parse(item.value);
-    this.userInfo = user;
+  mounted() {
+    this.fetchUserInfo();
+    this.fetchAccountBalance();
   },
+  methods: {
+    async fetchUserInfo(){
+      const item: any= await Storage.get({ key: 'user' });
+      const user: { id: string} = JSON.parse(item.value);
+      this.userInfo = user;
+    },
+    async fetchAccountBalance() {
+      const item: any= await Storage.get({ key: 'user' });
+      const user: { accountID: string} = JSON.parse(item.value);
+      try { 
+        const id = user.accountID;
+        const res = await CashGrowManager.getAccountBalance(id);
+        this.balance = res.data.balance;
+      } catch(e) {
+        console.log('Error fetching account details', e);
+      }
+    }
+  }
 }
 </script>
 <style>

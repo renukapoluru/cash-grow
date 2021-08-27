@@ -6,6 +6,7 @@
 
         <h3>Current Loans</h3>
         <div v-for="(application,index) in currentLoans" :key="index" :class="['application current all-text-white',application.type]">
+            <a :href="'/loans/'+application._id" class="link-card"></a>
             <div class="left-col">
               <h5>{{ application.type }}</h5>
               <h3>₹ {{ currencyFormatter(application.amount)}}</h3> 
@@ -48,6 +49,7 @@ export default  {
   }),
   async mounted() {
     try {
+      //@ts-ignore
       const { data } = await CashGrowManager.getApplicationsByStatus("APPROVED");
       this.currentLoans = data;
     } catch(err) {

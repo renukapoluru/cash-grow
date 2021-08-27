@@ -34,7 +34,7 @@ import { uniqueId } from '@/common/utils';
 import { CashGrowManager } from "@/services/services";
 
 export default  defineComponent({
-  name: 'Add Funds',
+  name: 'AddFunds',
   components: { 
     IonContent, 
     IonPage,
@@ -49,8 +49,8 @@ export default  defineComponent({
       const user: { accountID: string; limit: string} = JSON.parse(item.value);
       try { 
         const transferData = {
-          lenderId: 'b9d6b9db-3f9b-4afc-b59f-3964f8f59b54',
-          borrowerId: user.accountID,
+          debitId: 'b9d6b9db-3f9b-4afc-b59f-3964f8f59b54',
+          creditId: user.accountID,
           requestId: uniqueId(),
           amount: parseInt(this.amount)
         }
@@ -77,7 +77,8 @@ export default  defineComponent({
       }
     },
     sendToProfile(){
-      this.$router.push('/lender-tabs/tab3');
+      console.log('in send profile');
+      this.$router.push({ path: '/tabs/tab3' });
     },
   }
 })

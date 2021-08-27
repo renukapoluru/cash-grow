@@ -60,12 +60,14 @@ export default  {
   }),
   async mounted() {
     try {
+      //@ts-ignore
       const { data } = await CashGrowManager.getApplicationsByStatus("CREATED");
       this.applications = data;
     } catch(err) {
       callToast('danger', 'Error while fetching loan applications');
     }
     try {
+      //@ts-ignore
       const { data } = await CashGrowManager.getApplicationsByStatus("APPROVED");
       this.currentLoans = data;
     } catch(err) {

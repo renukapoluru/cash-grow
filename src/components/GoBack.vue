@@ -23,6 +23,7 @@ div#go-back {
     position: relative;
     z-index: 55;
     padding: 10px 20px 0;
+    background:#fff;
 }
 
 div#go-back img {

@@ -2,8 +2,8 @@
 import axios from 'axios';
 
 import { Storage } from '@capacitor/storage';
-const cashGrowBaseUrl = 'https://enigmatic-mesa-66554.herokuapp.com';
-//const cashGrowBaseUrl = 'http://localhost:4000';
+//const cashGrowBaseUrl = 'https://enigmatic-mesa-66554.herokuapp.com';
+const cashGrowBaseUrl = 'http://localhost:4000';
 export class CashGrowService {
 
     createAccountHolder(data: any) {
@@ -66,10 +66,10 @@ export class CashGrowService {
         return axios.get(url);
     }
 
-    async changeLoanApplicationStatus(id: string, status: string) {
+    async changeLoanApplicationStatus(id: string, status: string,borrowerId: string) {
         console.log(id,status);
         const url = `${cashGrowBaseUrl}/loanapplications/${id}/${status}`;
-        return axios.put(url);
+        return axios.put(url,{borrowerId});
     }
 
 

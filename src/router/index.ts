@@ -36,6 +36,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Lender/AddFunds.vue')
   },
   {
+    path:'/loans/:id',
+    component: () => import('@/views/GenericScreens/LoanDetails.vue')
+  },
+  {
     path: '/tabs/',
     component: Tabs,
     children: [
