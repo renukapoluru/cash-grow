@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonContent, toastController } from '@ionic/vue';
+import { IonPage, IonContent, toastController, loadingController } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { Storage } from '@capacitor/storage';
 
@@ -49,6 +49,10 @@ export default defineComponent({
   },
   methods:{
         async signIn(){
+          const loading = await loadingController.create({
+              message: 'Signing in...'
+          });
+          loading.present();
           try {
             const { data } = await CashGrowManager.loginUser({ email: this.email, password: this.password});
             if(data.length < 1) {
@@ -61,7 +65,9 @@ export default defineComponent({
                 this.$router.push('/lender-tabs/tab1');
               }
             }
+            loading.dismiss();
           } catch(e) {
+            loading.dismiss();
             this.callToast('danger', `Couldn't find the user.`);
           }
         },

@@ -104,7 +104,7 @@ export default  defineComponent({
   methods:{
         async signUp(){
           const loading = await loadingController.create({
-              message: 'Please wait...'
+              message: 'Signing up...'
           });
           loading.present();
           const dt = new Date(this.dob);
