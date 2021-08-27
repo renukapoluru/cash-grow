@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <a id="go-back" href="/lender-tabs/tab3"><img src="https://i.im.ge/2021/08/27/QofRGG.png" /></a>
+    <a id="go-back" @click="$router.go(-1)"><img src="https://i.im.ge/2021/08/27/QofRGG.png" /></a>
     <Header firstText="Add Funds"/>
     <ion-content :fullscreen="true">
       <div class="funds-adding-page">

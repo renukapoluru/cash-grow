@@ -125,16 +125,16 @@ export default  {
       const user: { accountID: string; limit: string} = JSON.parse(item.value);
       console.log('loan details', this.loan);
       try { 
-        // const transferData = {
-        //   lenderId: loan.applicantId,
-        //   borrowerId: loan.user._id,
-        //   requestId: uniqueId(),
-        //   amount: parseInt(this.amount)
-        // }
-        // const res = await CashGrowManager.transfer(transferData);
-        // if(res.status == 200) {
-        //   callToast("success", "Installment paid successfully");
-        // }
+        const transferData = {
+          debitId: user.accountID,
+          creditId: this.loan.borrowerId,
+          requestId: uniqueId(),
+          amount: 10
+        }
+        const res = await CashGrowManager.transfer(transferData);
+        if(res.status == 200) {
+          callToast("success", "Installment paid successfully");
+        }
       } catch(e) {
         console.log('Error fetching account details', e);
         callToast("danger", "Error while paying installment");
