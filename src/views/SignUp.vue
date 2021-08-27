@@ -116,7 +116,7 @@ export default  defineComponent({
               "firstName": this.firstname,
               "middleName": "",
               "lastName": this.lastname,
-              "profilePicURL": "https://i.im.ge/2021/08/26/QQqB39.jpg",
+              "profilePicURL": this.gender == 'MALE' ? 'https://i.im.ge/2021/08/27/QoBS1G.jpg': 'https://i.im.ge/2021/08/27/QoBOAc.jpg',
               "dob": {
                   "year": year,
                   "month": month,
@@ -169,7 +169,7 @@ export default  defineComponent({
             userId: this.createUserId(),
             password: this.password,
             limit: limit,
-            profilePicURL: "https://i.im.ge/2021/08/26/QQqB39.jpg",
+            profilePicURL:  this.gender == 'MALE' ? 'https://i.im.ge/2021/08/27/QoBS1G.jpg': 'https://i.im.ge/2021/08/27/QoBOAc.jpg',
             accountHolderID: accountHolderID,
             accountID: accountID
           };
