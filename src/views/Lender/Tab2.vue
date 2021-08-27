@@ -1,103 +1,74 @@
 <template>
   <ion-page>
-    <Header />
+    <Header firstText="Overview" :secondText="this.currentLoans.length+ ' current loans '"/>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Photo Gallery</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-grid>
-        <ion-row>
-          <ion-col size="6" :key="photo" v-for="photo in photos">
-            <ion-img
-              :src="photo.webviewPath"
-              @click="showActionSheet(photo)"
-            ></ion-img>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <div class="default-tab-padding">
 
-      <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-        <ion-fab-button @click="takePhoto()">
-          <ion-icon :icon="camera"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
+        <h3>Current Loans</h3>
+        <div v-for="(application,index) in currentLoans" :key="index" :class="['application current all-text-white',application.type]">
+            <div class="left-col">
+              <h5>{{ application.type }}</h5>
+              <h3>₹ {{ currencyFormatter(application.amount)}}</h3> 
+              <h5 class="paid-total">10% paid so far</h5>
+              <div class="progressbar">
+                <span class="filled" style="width:10%;"></span>
+                <span class="full"></span>
+              </div>
+              <span class="progressbar"></span>
+            </div>
+            <div class="right-col">
+                <img :src="getLoanTypeImage(application.type)" />
+            </div>
+        </div>
+
+      </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { camera, trash, close } from 'ionicons/icons';
-import {
-  actionSheetController,
-  IonPage,
-  IonHeader,
-  IonFab,
-  IonFabButton,
-  IonIcon,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonImg,
-  IonGrid,
-  IonRow,
-  IonCol,
-} from '@ionic/vue';
-import { usePhotoGallery, UserPhoto } from '@/composables/usePhotoGallery';
-import { defineComponent} from 'vue';
+import { IonPage, IonContent } from '@ionic/vue';
 import Header from '@/components/Header.vue';
-export default defineComponent({
+
+import { formatCurrency } from '@/common/utils';
+
+import { callToast } from '@/common/utils';
+
+import { loanTypeImages } from '@/common/utils';
+
+import { CashGrowManager } from "@/services/services";
+
+export default  {
   name: 'Tab2',
-  components: {
-    IonHeader,
-    IonFab,
-    IonIcon,
-    IonFabButton,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonPage,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonImg,
-    Header
+  components: { IonContent, IonPage, Header },
+  data: () => ({
+    applications : [],
+    loans: [],
+    currentLoans: []
+  }),
+  async mounted() {
+    try {
+      const { data } = await CashGrowManager.getApplicationsByStatus("APPROVED");
+      this.currentLoans = data;
+    } catch(err) {
+      callToast('danger', 'Error while fetching current loans');
+    }
   },
-  setup() {
-    const { photos, takePhoto, deletePhoto } = usePhotoGallery();
-    const showActionSheet = async (photo: UserPhoto) => {
-      const actionSheet = await actionSheetController.create({
-        header: 'Photos',
-        buttons: [
-          {
-            text: 'Delete',
-            role: 'destructive',
-            icon: trash,
-            handler: () => {
-              deletePhoto(photo);
-            },
-          },
-          {
-            text: 'Cancel',
-            icon: close,
-            role: 'cancel',
-            handler: () => {
-              // Nothing to do, action sheet is automatically closed
-            },
-          },
-        ],
-      });
-      await actionSheet.present();
-    };
-    return {
-      photos,
-      takePhoto,
-      showActionSheet,
-      camera,
-      trash,
-      close,
-    };
-  },
-});
+  methods: {
+    getSecondaryText() {
+      return `${this.applications.length} Applications &amp; ${this.loans.length} Loans`
+    },
+    currencyFormatter(amount: any) {
+      const formattedCurrency = formatCurrency(amount);
+      return formattedCurrency;
+    },
+    getLoanTypeImage(type: string) {
+      if(loanTypeImages[type]) {
+        return loanTypeImages[type]
+      } else {
+        return loanTypeImages['default']
+      }
+    }
+  }
+}
 </script>

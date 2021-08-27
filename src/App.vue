@@ -392,8 +392,12 @@ a#go-back+#header {
 .application {
     background-image: linear-gradient(#FF035E, #F916C7);
     border-radius: 10px;
-    padding:20px 25px;
+    padding:20px 15px;
     margin-bottom: 20px;
+}
+
+.application img {
+    max-height:30px;
 }
 
 .application.educational{
@@ -437,6 +441,38 @@ a#go-back+#header {
 
 .application img {
     vertical-align: middle;
+}
+
+.application img {
+    max-height: 50px;
+}
+
+.application h5.paid-total {
+    text-transform: none;
+    margin: 5px 0 0;
+}
+
+.application div.progressbar {
+    display: block;
+    width: 175%;
+    position: relative;
+}
+
+.application div.progressbar span.filled, .application div.progressbar span.full {
+    border-radius: 10px;
+    background: #f2f2f2;
+    height: 7px;
+    display: block;
+    margin: 5px 0 0;
+}
+
+span.full {}
+
+.application div.progressbar span.filled {
+    position: absolute;
+    top: -5px;
+    z-index: 1;
+    background: #4A00E0;
 }
 
 /* Profile Page */
