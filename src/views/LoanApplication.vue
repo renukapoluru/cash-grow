@@ -45,7 +45,6 @@ import Header from '@/components/Header.vue';
 import { callToast } from '@/common/utils';
 
 import { defineComponent } from 'vue';
-import { Storage } from '@capacitor/storage';
 
 import { CashGrowManager } from "@/services/services";
 
@@ -99,8 +98,6 @@ export default  defineComponent({
   }),
   methods: {
     async applyLoan() {
-      const item: any= await Storage.get({ key: 'user' });
-      const user: any = JSON.parse(item.value);
       const applicationBody = {
           type: this.$route.params.type,
           amount: this.amount,
@@ -110,7 +107,7 @@ export default  defineComponent({
       };
 
       try {
-          const applicationRes = await CashGrowManager.createLoanApplication(applicationBody);
+          await CashGrowManager.createLoanApplication(applicationBody);
           callToast('success','Loan request created');
           this.$router.push('/tabs/tab2');
       } catch(err) {

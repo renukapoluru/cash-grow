@@ -53,6 +53,10 @@ import { IonPage, IonContent } from '@ionic/vue';
 import Header from '@/components/Header.vue';
 import GoBack from '@/components/GoBack.vue';
 
+import { callToast } from '@/common/utils';
+
+import { CashGrowManager } from "@/services/services";
+
 export default  {
   name: 'LoanRequestDetails',
   components: { 
@@ -68,16 +72,14 @@ export default  {
     this.fetchLoanDetails();
   },
   methods: {
-    fetchLoanDetails() {
+    async fetchLoanDetails() {
       const id = this.$route.params.id;
-      fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/loans/'+id)
-      .then(response => response.json())
-      .then(data => {
+      try {
+        const { data } = await CashGrowManager.getLoanApplication(id);
         this.loan = data;
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+      } catch(e) {
+        callToast('danger', 'Error while fetching loan application');
+      }
     },
     getRatingColor(rating: number) {
       if(rating > 4) {

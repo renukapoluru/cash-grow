@@ -50,7 +50,7 @@
                 </div>
               </div>
               <div class="disburse-loan">
-                <ion-button color="primary" @click="lend(loan.user.accountID)">LEND</ion-button>
+                <ion-button color="primary" :href="'/lender/loans/'+loan._id">LEND</ion-button>
               </div>
             </div>
           </div>
