@@ -61,15 +61,22 @@ export class CashGrowService {
         return axios.get(url);
     }
 
+    async getLenderLoans() {  
+        const storageUser: any= await Storage.get({ key: 'user' });
+        const user: { _id: string } = JSON.parse(storageUser.value);     
+        const url = `${cashGrowBaseUrl}/loanapplications/lender/${user._id}`;
+        return axios.get(url);
+    }
+
     async getLoanApplication(id: string) {
         const url = `${cashGrowBaseUrl}/loanapplications/${id}`;
         return axios.get(url);
     }
 
-    async changeLoanApplicationStatus(id: string, status: string,borrowerId: string) {
+    async changeLoanApplicationStatus(id: string, status: string,lenderId: string) {
         console.log(id,status);
         const url = `${cashGrowBaseUrl}/loanapplications/${id}/${status}`;
-        return axios.put(url,{borrowerId});
+        return axios.put(url,{lenderId});
     }
 
     async payInstallment(id: string) {
