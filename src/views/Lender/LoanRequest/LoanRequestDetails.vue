@@ -121,6 +121,9 @@ import { IonPage, IonContent } from '@ionic/vue';
 import Header from '@/components/Header.vue';
 import GoBack from '@/components/GoBack.vue';
 
+import { Storage } from '@capacitor/storage';
+
+import { uniqueId } from '@/common/utils';
 import { callToast } from '@/common/utils';
 
 import { CashGrowManager } from "@/services/services";
@@ -178,8 +181,23 @@ export default  {
       this.currentStep = this.currentStep+1;
     },
     async changeLoanApplicationStatus() {
+        const storageUser: any= await Storage.get({ key: 'user' });
+        const user: { accountID: string } = JSON.parse(storageUser.value);
         try {
           await CashGrowManager.changeLoanApplicationStatus(this.loan._id,"APPROVED");
+          try {
+            const transferData = {
+              lenderId: user.accountID,
+              borrowerId: this.loan.user.accountID,
+              requestId: uniqueId(),
+              amount: parseInt(this.loan.amount)
+            };
+            console.log('body', transferData);
+            await CashGrowManager.transfer(transferData);
+            callToast("success", "Amount transferred successfully");
+          } catch(e) {
+            callToast("danger","Error while transfering funds to borrower.")
+          }
         } catch(e) {
           callToast("danger","Error while saving the application details.")
         }
