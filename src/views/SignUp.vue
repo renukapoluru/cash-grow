@@ -65,8 +65,6 @@
 <script lang="ts">
 import { IonPage, IonContent, toastController } from '@ionic/vue';
 
-import Header from '@/components/Header.vue';
-
 import { defineComponent } from 'vue';
 
 import { uniqueId } from '@/common/utils';
@@ -162,7 +160,7 @@ export default  defineComponent({
           this.accountHolderRes = await CashGrowManager.createAccountHolder({ accountHolder: accountHolder});
           const { accountHolderID, accountID } = this.accountHolderRes.data;
           const rndInt = Math.floor(Math.random() * 12) + 1;
-          const limit = rndInt*500*1000;
+          const limit = rndInt*500*10;
           const data = {
             firstName: this.firstname,
             lastName: this.lastname,
@@ -175,7 +173,7 @@ export default  defineComponent({
             accountHolderID: accountHolderID,
             accountID: accountID
           };
-          fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users', {
+          fetch('http://localhost:4000/users', {
             method: 'POST', // or 'PUT'
             headers: {
               'Content-Type': 'application/json',
@@ -183,13 +181,13 @@ export default  defineComponent({
             body: JSON.stringify(data),
           })
           .then(response => response.json())
-          .then(data => {
-            this.callToast('Account created. Please sign in.');
+          .then(() => {
+            this.callToast('success','Account created. Please sign in.');
             this.$router.push('/signin');
           })
           .catch((error) => {
             console.error('Error:', error);
-            this.callToast('Error creating account.');
+            this.callToast('danger','Error creating account.');
           });
         },
         createUserId() {
@@ -201,10 +199,11 @@ export default  defineComponent({
           ID += Math.floor(Math.random()*(999-100+1)+100);
           return ID;
         },
-        async callToast(message: string) {
+        async callToast(type: string, message: string) {
 
           const toast = await toastController
             .create({
+              color: type,
               message: message,
               duration: 2000
             })

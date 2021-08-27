@@ -38,8 +38,7 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonHeader, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
+import { IonPage, IonContent } from '@ionic/vue';
 
 import { Storage } from '@capacitor/storage';
 

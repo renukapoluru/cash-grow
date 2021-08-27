@@ -29,6 +29,8 @@ import { IonPage, IonContent, toastController } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { Storage } from '@capacitor/storage';
 
+import { CashGrowManager } from "@/services/services";
+
 export default defineComponent({
   name: 'SignIn',
   components: { 
@@ -45,53 +47,29 @@ export default defineComponent({
       pwdIcon: require('@/assets/pwd-icon.png'), 
     }
   },
-  mounted() {
-    this.fetchUsers();
-  },
   methods:{
-        fetchUsers() {
-          fetch('https://6107b8f1d73c6400170d35a9.mockapi.io/users')
-          .then(response => response.json())
-          .then(data => {
-            this.users = data;
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-        },
         async signIn(){
-          let userFound = false;
-          let passwordMatched = false;
-          let role = '';
-          await this.users.forEach((entry: any) => {
-              if(entry.email == this.email) {
-                userFound = true;
-                role = entry.role;
-                if(entry.password == this.password) {
-                  passwordMatched = true;
-                    const user = entry;
-                    Storage.set({ key: 'user', value:JSON.stringify(user)});
-                }
-              }
-          });
-          if(userFound) {
-            if(passwordMatched) {
-              if(role == 'LEND') {
-                this.$router.push('/lender-tabs/tab1');
-              } else {
-                this.$router.push('/tabs/tab1');
-              }
+          try {
+            const { data } = await CashGrowManager.loginUser({ email: this.email, password: this.password});
+            if(data.length < 1) {
+              this.callToast('danger', `Couldn't find the user.`);
             } else {
-              this.callToast('Incorrect password');
+              Storage.set({ key: 'user', value:JSON.stringify(data[0])});
+              if(data[0].role == 'BORROW'){
+                this.$router.push('/tabs/tab1');
+              } else {
+                this.$router.push('/lender-tabs/tab1');
+              }
             }
-          } else {
-            this.callToast('User not found');
+          } catch(e) {
+            this.callToast('danger', `Couldn't find the user.`);
           }
         },
-        async callToast(message: string) {
+        async callToast(type: string, message: string) {
 
           const toast = await toastController
             .create({
+              color: type,
               message: message,
               duration: 2000
             })
