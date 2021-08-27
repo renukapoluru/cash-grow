@@ -16,7 +16,7 @@
               <h5>Balance</h5>
             </div>
             <div class="column">
-              <a>+ Add Funds</a>
+              <a href="/lender/addfunds">+ Add Funds</a>
             </div>
         </div>
         <div class="cards">

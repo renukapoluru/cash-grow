@@ -158,7 +158,7 @@ body a {
     margin: 0;
     --border-radius: 25px;
     height: 40px;
-    margin: 0 auto;
+    margin: 30px auto 5px;
 }
 
 .input-field input:focus {

@@ -3,7 +3,7 @@
     <GoBack @click="sendToHome()" />
     <Header class="hide-top-padding" firstText="Application Details" secondText="A brief overview of the loan application"/>
     <ion-content :fullscreen="true">
-      <div class="page-padding">
+      <div class="page-padding loan-request-details">
         <div v-if="currentStep == 1">
           <div v-if="loan.user" class="loan-card about-borrower">
             <div class="card-top">
@@ -43,9 +43,72 @@
           </div>
         </div>
         <div v-if="currentStep == 2">
-          E-agreement
+          <div class="pdf-format">
+            <h4>Loan Agreement</h4>
+            <p>This Loan Agreement is executed on this 0Xth day of December, 20XX;</p>
+                                                                                                                                                                    Between
+            <p>Mr QWERTY (PAN No. ABCDESFG), s/o ABCD , Address: #12334, hereinafter referred to 
+              as the Lender which expression unless repugnant to the context shall mean and includes 
+              its legal representatives, assignee and administrator;</p>                                                                                                                                                                                                      
+                                                                                                                                                                      And
+            <p>Mr TREWQ (PAN No. BXCCCCCCC) s/o XYZX r/o9870,hereinafter referred to as theBorrower 
+              which expression unless repugnant to the context shall mean and includes its legal 
+              representatives, assignee and administrator;</p>
+
+            <p>Whereas at the request of the Borrower, the Lender has agreed to grant a loan 
+              not exceeding a sum of INR XXXX Thousand Only (INR XXXX) to the Borrower for a 
+              period of XX (XX) Months on terms and conditions hereinafter contained.</p>
+
+            <p>1. The Lender agrees to lend to the Borrower a sum not exceeding INR XXXX Thousand 
+              Only (INR XXXX)to the Borrower for a period of XX (XX) months, the borrower 
+              accepts the loan and agrees to repay the amount in accordance with the terms and 
+              conditions set out in this Agreement.</p>
+
+            <p>2. Both parties represent covenants and warrants to each other that:</p>
+            <p>(a)     that he / she has read all the terms and conditions, privacy policy, and 
+              other material available at the website of CashGrow  Technologies India Private
+              Limited.</p>
+            <p>(b)     that they unconditionally agreed to abide by the terms and conditions, privacy 
+              policy and other binding material contained on the website of CashGrow 
+              Technologies India Private Limited.</p>
+            <p>(c)     that the information and financial details submitted by him / her on the website 
+              of CashGrow Technologies India Private Limited are true and correct.</p>
+            <p>(d)     that they understand that CashGrow Technologies India Private Limited only 
+              facilitate meeting of lenders and borrowers and is not engaged or is responsible for 
+              either lending or ensuring that the borrower shall repay the borrowed amount on time.</p>
+            <p>(e)     CashGrow Technologies India Private Limited is in no manner responsible 
+              towards either loss of money or breach of privacy or leakage of any confidential 
+              information.</p>
+            <p>(f)      that they have not provided any information which is incorrect or materially 
+              impairs the decision of the CashGrow Technologies India Private Limited to either 
+              register him / her or permits to lend him / her through the website of CashGrow 
+              Technologies India Private Limited.</p>
+
+            <p>3.The Borrower agreed to pay interest and additional interest payable on the 
+              Loan as follows:</p>
+            <p>(a) The Loan will carry interest at such rate as may be agreed in terms of 
+              Schedule I to this Loan Agreement.</p>
+            <p>(b) The Borrower shall pay the interest along with the principle and penal 
+              interest of penalties if any on 10th of every month starting from the month 
+              which follows the month in which the Loan is disbursed to the Borrower by 
+              the Lender. Such repayments of Loan shall continue until the date of complete 
+              repayment of loan.</p> 
+            <p>(c) Any default by the Borrower in payment for dues towards interest or 
+              principle would entail an additional interest charge of 24% on the entire Loan, 
+              liveable from the date of the default without prejudice to Lenders other rights 
+              available as per this agreement and on default / failure of the Borrower to pay 
+              the same.</p>
+            <p>(d) Provided also that the obligation to pay additional interest shall not 
+              entitle the Borrower to set up a defence that no event of default as mentioned 
+              hereunder has occurred.</p>
+            </div>
         </div>
-        <div class="disburse-loan">
+        <div class="step-3" v-if="currentStep == 3">
+            <img src="https://i.im.ge/2021/08/27/QoHz6m.png" />
+            <h3>Sit back and Relax!</h3>
+            <p>We will let you know once the borrower signs the agreement. In case, the borrower doesn't sign within 24 hours, the amount will get unblocked from your account.</p>
+        </div>
+        <div v-if="currentStep <=2" class="disburse-loan">
           <ion-button color="primary" @click="nextStep()">{{ stepsButtonText[currentStep-1] }}</ion-button>
         </div>
       </div>
@@ -109,7 +172,17 @@ export default  {
       this.$router.push('/lender-tabs/tab1');
     },
     nextStep() {
+      if(this.currentStep == 2) {
+        this.changeLoanApplicationStatus();
+      }
       this.currentStep = this.currentStep+1;
+    },
+    async changeLoanApplicationStatus() {
+        try {
+          await CashGrowManager.changeLoanApplicationStatus(this.loan._id,"APPROVED");
+        } catch(e) {
+          callToast("danger","Error while saving the application details.")
+        }
     }
   }
 }
@@ -177,6 +250,31 @@ rgba(0, 0, 0, 0.25);
 
 .profile-depth h3 {
     font-size: 1rem;
+}
+
+.pdf-format {
+    padding: 20px;
+    font-size: 10px;
+    border: 1px solid #010101;
+    height: 65vh;
+    overflow: scroll;
+}
+
+.pdf-format h4 {
+    text-align: center;
+    font-size: 15px;
+}
+
+.loan-request-details .step-3 {
+    text-align: center;
+}
+
+.loan-request-details .step-3 h3 {
+    margin-top: 20px;
+}
+
+.loan-request-details .step-3 p {
+    font-size: 16px;
 }
 
 </style>

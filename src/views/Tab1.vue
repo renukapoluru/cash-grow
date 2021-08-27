@@ -42,14 +42,8 @@ export default  {
   }),
   async mounted() {
     const item: any= await Storage.get({ key: 'user' });
-    const user: { accountId: string; limit: string} = JSON.parse(item.value);
+    const user: { accountID: string; limit: string} = JSON.parse(item.value);
     this.limit = await formatCurrency(user.limit);
-    try { 
-      const id = user.accountId;
-      const res = await CashGrowManager.getAccountDetails(id);
-    } catch(e) {
-      console.log('Error fetching account details', e);
-    }
   }
 }
 </script>
