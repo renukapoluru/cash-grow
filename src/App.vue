@@ -597,6 +597,84 @@ span.full {}
     opacity: 0.5;
 }
 
+/* Funds Adding Page */
 
+.funds-adding-page {
+    padding: 20px;
+}
+
+.funds-adding-page label {
+    display: block;
+    font-size: 20px;
+    font-family: 'PT Sans',sans-serif;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: left;
+    color: #4A00E0;
+}
+
+.funds-adding-page .amount label {
+    text-align: center;
+}
+
+.funds-adding-page > div {
+    margin-bottom: 20px;
+}
+.funds-adding-page .amount input {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #e1e1e1;
+    padding: 5px 0;
+    background: url(https://i.im.ge/2021/08/27/Qofx2r.png);
+    background-size: 20px auto;
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 22px;
+    font-family: 'PT Sans',sans-serif;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.funds-adding-page .amount input:focus {
+    outline: none;
+}
+
+.funds-adding-page input[type="radio"] {
+    width: 20px;
+    height: 20px;
+}
+
+.add-funds-btn {
+    margin-top: 70px;
+}
+
+.funds-adding-page .radio-group {
+  font-family: 'PT Sans',sans-serif;
+  font-size: 20px;
+  position: relative;
+  padding-right: 20px;
+}
+
+.funds-adding-page .radio-group input {
+    position: absolute;
+    right: 0;
+    top: 1px;
+}
+
+.funds-adding-page select {
+    border: 1px solid #e1e1e1;
+    padding: 10px 10px;
+    display: block;
+    width: 100%;
+    margin: 0px 0 0;
+}
+
+
+.funds-adding-page input {
+    width: 100%;
+    border: 1px solid #e1e1e1;
+    padding: 10px 10px;
+    margin: 0px 0 0;
+}
 
 </style>

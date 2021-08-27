@@ -3,35 +3,28 @@
     <Header firstText="Personal Loan Application" secondText="Please fill the details"/>
     <ion-content :fullscreen="true">
       <div class="apply-for-loan loan-application">
-      <ion-item>
-          <div class="input-group">
-            <div class="label">Amount</div>
-            <div class="input-value">{{ amount }}</div>
-          </div>
-          <ion-range min="50000" max="150000" pin step="1000" @ionChange="amountChanged" >
-            <ion-label slot="start">50000</ion-label>
-            <ion-label slot="end">150000</ion-label>
-          </ion-range>
-        </ion-item>
-        <!-- <ion-item>
-          <ion-label position="fixed">Amount</ion-label>
-          <ion-input v-model="amount"></ion-input>
-        </ion-item> -->
-        <ion-item>
-          <ion-label position="fixed">ROI</ion-label>
-          <ion-input v-model="interest"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="fixed">Tenure</ion-label>
-          <ion-select v-model="tenure" placeholder="Select tenure">
-            <ion-select-option value="6">6 Months</ion-select-option>
-            <ion-select-option value="12">12 Months</ion-select-option>
-            <ion-select-option value="24">24 Months</ion-select-option>
-            <ion-select-option value="36">36 Months</ion-select-option>
-            <ion-select-option value="48">48 Months</ion-select-option>
-            <ion-select-option value="60">60 Months</ion-select-option>
-          </ion-select>
-        </ion-item>
+        <div class="funds-adding-page">
+        <div class="input-group amount">
+            <label>Amount</label>
+            <input type="number" v-model="amount">
+        </div>
+        <div class="input-group">
+            <label>Interest</label>
+            <input v-model="interest" type="text">
+        </div>
+        <div class="select-source">
+            <label>Tenure</label>
+            <select v-model="tenure">
+              <option value="Select Tenure" disabled>Select Tenure</option>
+              <option value="12">12</option>
+              <option value="24">24</option>
+              <option value="36">36</option>
+              <option value="48">48</option>
+              <option value="60">60</option>
+            </select>
+        </div>
+      </div>
+    
         <ion-button color="primary" @click="applyLoan">APPLY</ion-button>
       </div>
     </ion-content>
@@ -54,14 +47,11 @@ export default  defineComponent({
     IonContent, 
     IonPage,
     Header,
-    IonInput,
-    IonSelect,
-    IonSelectOption
   },
   data: () => ({
     amount: 50000,
-    interest: null,
-    tenure: null,
+    interest: 12,
+    tenure: "Select Tenure",
     nextIcon: require('@/assets/next.png'),
     loansInfo: [
       {
