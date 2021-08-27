@@ -63,7 +63,7 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonContent, toastController } from '@ionic/vue';
+import { IonPage, IonContent, toastController,loadingController } from '@ionic/vue';
 
 import { defineComponent } from 'vue';
 
@@ -103,6 +103,10 @@ export default  defineComponent({
   },
   methods:{
         async signUp(){
+          const loading = await loadingController.create({
+              message: 'Please wait...'
+          });
+          loading.present();
           const dt = new Date(this.dob);
           const year = dt.getFullYear();
           const month =  parseInt((dt.getMonth() < 10 ? '0' : '') + (dt.getMonth()+1));
@@ -184,10 +188,12 @@ export default  defineComponent({
           .then(() => {
             this.callToast('success','Account created. Please sign in.');
             this.$router.push('/signin');
+            loading.dismiss();
           })
           .catch((error) => {
             console.error('Error:', error);
             this.callToast('danger','Error creating account.');
+            loading.dismiss();
           });
         },
         createUserId() {
