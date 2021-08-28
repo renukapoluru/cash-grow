@@ -164,7 +164,7 @@ export default  defineComponent({
           this.accountHolderRes = await CashGrowManager.createAccountHolder({ accountHolder: accountHolder});
           const { accountHolderID, accountID } = this.accountHolderRes.data;
           const rndInt = Math.floor(Math.random() * 12) + 1;
-          const limit = rndInt*500*10;
+          const limit = rndInt*5000*10;
           const data = {
             firstName: this.firstname,
             lastName: this.lastname,
