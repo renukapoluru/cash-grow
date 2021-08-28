@@ -135,7 +135,7 @@ export default  {
       try { 
         const transferData = {
           debitId: user.accountID,
-          creditId: this.loan.lenderId,
+          creditId: this.loan.borrowerId,
           requestId: uniqueId(),
           amount: this.loan.emi
         }
