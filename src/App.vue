@@ -57,6 +57,7 @@ body a {
     color: #7A7A7A;
     font-size: 0.9rem;
     margin:0;
+    text-transform: capitalize;
 }
 #header .notification img {
   cursor: pointer;

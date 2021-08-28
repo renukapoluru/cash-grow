@@ -18,7 +18,7 @@
                 <img :src="getLoanTypeImage(loan.type)" />
             </div>
         </div>
-        <Upcoming />
+        <Upcoming :emi="parseInt(loan.emi)" />
         <div class="upcoming breakdown">
           <h3 class="section-heading">Breakdown</h3>
           <div class="square-bg">
@@ -135,7 +135,7 @@ export default  {
       try { 
         const transferData = {
           debitId: user.accountID,
-          creditId: this.loan.borrowerId,
+          creditId: this.loan.lenderId,
           requestId: uniqueId(),
           amount: this.loan.emi
         }

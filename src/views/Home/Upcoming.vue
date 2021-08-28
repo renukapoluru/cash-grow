@@ -3,14 +3,14 @@
         <h3 class="section-heading">Upcoming</h3>
         <div class="square-bg">
             <div class="date">
-                <span class="month">MAR</span>
-                <span class="day">12</span>
+                <span class="month">SEP</span>
+                <span class="day">28</span>
             </div>
             <div class="desc">
-                Next charge in 10 days
+                Next charge in 30 days
             </div>
             <div class="price">
-                ₹3000
+                ₹{{emi ||'3000'}}
             </div>
         </div>
     </div>
@@ -20,10 +20,11 @@
 
 export default  {
   name: 'Upcoming',
-  components: {
+  props: {
+    emi: { type: String}
   },
-  data: () => ({
-  })
+  components: {
+  }
 }
 </script>
 <style>
