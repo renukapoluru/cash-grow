@@ -34,7 +34,7 @@ body a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding:30px 20px 20px;
+    padding:20px 20px 20px;
     background:#fff;
     z-index: 1;
 }
@@ -61,6 +61,28 @@ body a {
 }
 #header .notification img {
   cursor: pointer;
+}
+
+#header img.down {
+    max-width: 18px;
+}
+
+.hello-user input {
+    border: 0;
+    margin: 0 5px;
+    color: #000000;
+    width: 100%;
+    font-size: 10px;
+}
+
+.hello-user input:focus {
+    outline: none;
+}
+
+.hello-user {
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 
 /* First Screen */

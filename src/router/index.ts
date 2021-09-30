@@ -5,7 +5,15 @@ import LenderTabs from '../views/Lender/Tabs.vue';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/signin'
+    redirect: '/tabs/tab1'
+  },
+  {
+    path: '/services/:type',
+    component: () => import('@/views/Services.vue')
+  },
+  {
+    path: '/directions/:name/:lat/:long',
+    component: () => import('@/views/Directions.vue')
   },
   {
     path: '/apply',
@@ -14,30 +22,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/firstscreen',
     component: () => import('@/views/FirstScreen.vue')
-  },
-  {
-    path: '/signin',
-    component: () => import('@/views/SignIn.vue')
-  },
-  {
-    path: '/signup',
-    component: () => import('@/views/SignUp.vue')
-  },
-  {
-    path: '/signup/step1',
-    component: () => import('@/views/SignUpSteps/Step1.vue')
-  },
-  {
-    path: '/lender/loans/:id',
-    component: () => import('@/views/Lender/LoanRequest/LoanRequestDetails.vue')
-  },
-  {
-    path: '/lender/addfunds',
-    component: () => import('@/views/Lender/AddFunds.vue')
-  },
-  {
-    path:'/loans/:id',
-    component: () => import('@/views/GenericScreens/LoanDetails.vue')
   },
   {
     path: '/tabs/',

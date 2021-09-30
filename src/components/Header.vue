@@ -1,11 +1,9 @@
 <template>
   <div id="header">
     <div class="hello-user">
-        <h3>{{ firstText || 'Hello!' }}</h3>
-        <h4>{{ secondText || userName}}</h4>
-      </div>
-      <div class="notification">
-        <img :src="notificationIcon" />
+      <img :src="locationIcon" />
+      <input type="text" v-model="location" />
+      <img class="down" :src="arrowIcon" />
     </div>
   </div>
 </template>
@@ -22,7 +20,9 @@ export default {
   },
   data: () => ({
     userName : '',
-    notificationIcon : require('@/assets/notification.png'),
+    location: 'Kempagowda International Airport',
+    locationIcon : require('@/assets/location.png'),
+    arrowIcon : require('@/assets/down-chevron.png'),
   }),
   async mounted() {
     const item: any= await Storage.get({ key: 'user' });

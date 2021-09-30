@@ -5,39 +5,7 @@
       <ion-refresher  pull-factor="0.5" pull-min="50" slot="fixed" @ionRefresh="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
-      <div class="default-tab-padding">
-
-        <h3>Current Loans</h3>
-        <div v-for="(application,index) in currentLoans" :key="index" :class="['application current all-text-white',application.type]">
-            <a :href="'/loans/'+application._id" class="link-card"></a>
-            <div class="left-col">
-              <h5>{{ application.type }}</h5>
-              <h3>₹ {{ currencyFormatter(application.amount)}}</h3> 
-              <h5 class="paid-total">You’ve paid {{ getLoanPercentage(application) }}% from total</h5>
-              <div class="progressbar">
-                <span class="filled" :style="{ width:getLoanPercentage(application)+'%' }"></span>
-                <span class="full"></span>
-              </div>
-              <span class="progressbar"></span>
-            </div>
-            <div class="right-col">
-                <img :src="getLoanTypeImage(application.type)" />
-            </div>
-        </div>
-        
-        <h3>Loan Applications</h3>
-        <div class="applications">
-          <div  v-for="(application,index) in applications" :key="index" :class="['application all-text-white',application.type]">
-            <div class="left-col">
-              <h5>{{ application.type }}</h5>
-              <h3>₹ {{ currencyFormatter(application.amount)}}</h3> 
-            </div>
-            <div class="right-col">
-                <img :src="getLoanTypeImage(application.type)" />
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </ion-content>
   </ion-page>
 </template>
