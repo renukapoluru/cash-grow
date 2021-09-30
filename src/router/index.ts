@@ -16,14 +16,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Directions.vue')
   },
   {
-    path: '/apply',
-    component: () => import('@/views/ApplyForLoan.vue')
-  },
-  {
-    path: '/firstscreen',
-    component: () => import('@/views/FirstScreen.vue')
-  },
-  {
     path: '/tabs/',
     component: Tabs,
     children: [
@@ -44,33 +36,6 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/Tab3.vue')
       },    
     ]
-  },
-  {
-    path: '/lender-tabs/',
-    component: LenderTabs,
-    children: [
-      {
-        path: '',
-        redirect: '/lender-tabs/tab1'
-      },
-      {
-        path: 'tab1',
-        component: () => import('@/views/Lender/Tab1.vue')
-      },
-      {
-        path: 'tab2',
-        component: () => import('@/views/Lender/Tab2.vue')
-      },
-      {
-        path: 'tab3',
-        component: () => import('@/views/Lender/Tab3.vue')
-      },    
-    ]
-  },
-  {
-    path: '/loan-application/:type',
-    component: () => import('@/views/LoanApplication.vue'),
-    props: true
   },
 ]
 

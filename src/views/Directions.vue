@@ -2,15 +2,15 @@
   <ion-page>
     <GoBack @click="sendToHome()" />
     <ion-content :fullscreen="true">
-      <div class="page-padding services-page">
-        <h3 class="section-heading" v-if="name">
+      <div class="page-padding services-page" style="padding:0;">
+        <h3 class="section-heading" v-if="name" style="padding:0 20px;">
           <span style="color:#000;">Navigating to</span> {{ $route.params.name }}<span style="color:#000;">...</span>
         </h3>
         <h3 v-else class="section-heading route-params">
           Navigation
         </h3>
         <div class="navigator-screen">
-
+          <img  style="width:100%; height:auto;" src="https://i.ibb.co/10CmGb6/Navigation-1.png" alt="Navigation-1" border="0">
         </div>
       </div>
     </ion-content>

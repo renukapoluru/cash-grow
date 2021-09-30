@@ -187,6 +187,7 @@ export default  {
     flex-wrap: wrap;
     justify-content: flex-start;
     margin: 0 -20px;
+    cursor: pointer;
 }
 
 .services .blocks .block {
