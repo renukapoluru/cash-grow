@@ -10,13 +10,7 @@
           Navigation
         </h3>
         <div class="navigator-screen">
-          <img  style="width:100%; height:auto;" src="https://i.ibb.co/10CmGb6/Navigation-1.png" alt="Navigation-1" border="0">
-          <a-scene embedded arjs>
-              <a-marker preset="hiro">
-                  <a-box position="0 0 0" material="opacity: 1;" color="#1a6591"></a-box>
-              </a-marker>
-          <a-entity camera></a-entity>
-          </a-scene>
+          <iframe src="/assets/scene.html" style="position:absolute; width: 100%; height: 100%;"></iframe>
         </div>
       </div>
     </ion-content>
@@ -160,6 +154,13 @@ export default  {
 .services-page .list-item img.navigate {
     height: 30px;
     cursor: pointer;
+}
+
+.services-page iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 
 </style>
