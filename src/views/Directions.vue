@@ -11,6 +11,12 @@
         </h3>
         <div class="navigator-screen">
           <img  style="width:100%; height:auto;" src="https://i.ibb.co/10CmGb6/Navigation-1.png" alt="Navigation-1" border="0">
+          <a-scene embedded arjs>
+              <a-marker preset="hiro">
+                  <a-box position="0 0 0" material="opacity: 1;" color="#1a6591"></a-box>
+              </a-marker>
+          <a-entity camera></a-entity>
+          </a-scene>
         </div>
       </div>
     </ion-content>
